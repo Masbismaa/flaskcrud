@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Produk
+{% endblock %}
+
+{% block content %}
+
+<h1>Edit Produk</h1>
+
+<form
+    method="POST"
+    action="{{ url_for('product.edit_product', id=product.id) }}">
+    <div>
+        <label>Nama Produk</label>
+        <input
+            type="text"
+            name="name"
+            value="{{ product.name }}"
+            required
+        >
+    </div>
+
+    <div>
+        <label>Harga</label>
+        <input
+            type="number"
+            name="price"
+            value="{{ product.price }}"
+            min="0"
+            required
+        >
+    </div>
+
+    <div>
+        <label>Stock</label>
+        <input
+            type="number"
+            name="stock"
+            value="{{ product.stock }}"
+            min="0"
+            required
+        >
+    </div>
+
+    <div>
+        <label>Kategori</label>
+
+        <select name="category" required>
+            <option
+                value="Sembako"
+                {% if product.category == "Sembako" %}selected{% endif %}
+            >
+                Sembako
+            </option>
+            <option
+                value="Makanan"
+                {% if product.category == "Makanan" %}selected{% endif %}
+            >
+                Makanan
+            </option>
+            <option
+                value="Minuman"
+                {% if product.category == "Minuman" %}selected{% endif %}
+            >
+                Minuman
+            </option>
+            <option
+                value="Peralatan"
+                {% if product.category == "Peralatan" %}selected{% endif %}
+            >
+                Peralatan
+            </option>
+        </select>
+    </div>
+
+    <button type="submit">
+        Simpan Perubahan
+    </button>
+</form>
+{% endblock %}

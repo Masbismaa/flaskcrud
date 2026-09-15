@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}
+Daftar Produk
+{% endblock %}
+
+{% block content %}
+
+<div class="header">
+
+    <div>
+        <h1>Daftar Produk</h1>
+        <p>Kelola data produk kamu.</p>
+    </div>
+
+    <a
+        href="{{ url_for('product.add_product') }}"
+        class="btn"
+    >
+        + Tambah Produk
+    </a>
+
+</div>
+
+<div class="toolbar">
+    <input 
+    type="text"
+    id="searchInput"
+    placeholder="Cari Produk"
+    >
+
+    <select name="" id="categoryFilter">
+        <option value="all">Semua Kategori</option>
+        <option value="Sembako">Sembako</option>
+        <option value="Makanan">Makanan</option>
+        <option value="Minuman">Minuman</option>
+        <option value="Peralatan">Peralatan</option>
+    </select>
+</div>
+
+<table id="productTable">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>kategori</th>
+            <th>Harga</th>
+            <th>Stock</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for product in products %}
+
+        <tr>
+
+            <td>
+                {{ product.id }}
+            </td>
+
+            <td>
+                {{ product.name }}
+            </td>
+
+            <td>
+                <span class="category">
+                    {{product.category}}
+                </span>
+            </td>
+
+            <td>
+                Rp {{ "{:,}".format(product.price).replace(",", ".") }}
+            </td>
+
+            <td>
+                {{ product.stock }}
+            </td>
+
+            <td>
+
+                <a
+                    href="{{ url_for('product.edit_product', id=product.id) }}"
+                    class="btn-edit"
+                >
+                    Edit
+                </a>
+
+                <form
+                    action="{{ url_for('product.delete_product', id=product.id) }}"
+                    method="POST"
+                    class="delete-form"
+                >
+
+                    <button
+                        type="submit"
+                        class="btn-delete"
+                    >
+                        Hapus
+                    </button>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+        {% else %}
+
+        <tr>
+
+            <td colspan="5">
+                Belum ada produk.
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

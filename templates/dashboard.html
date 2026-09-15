@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-header">
+
+    <div>
+        <h1>Dashboard</h1>
+
+        <p>
+            Ringkasan inventory produk kamu.
+        </p>
+    </div>
+
+</div>
+
+
+<div class="stats">
+
+    <div class="stat-card">
+
+        <span>Total Produk</span>
+
+        <strong>
+            {{ total_products }}
+        </strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <span>Total Stock</span>
+
+        <strong>
+            {{ total_stock }}
+        </strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <span>Stock Habis</span>
+
+        <strong>
+            {{ out_of_stock }}
+        </strong>
+
+    </div>
+
+</div>
+
+
+<div class="dashboard-card">
+
+    <div class="card-header">
+
+        <h2>
+            Stock Menipis
+        </h2>
+
+        <span>
+            ≤ 5
+        </span>
+
+    </div>
+
+
+    {% if low_stock %}
+
+        <div class="low-stock-list">
+
+            {% for product in low_stock %}
+
+                <div class="stock-item">
+
+                    <div>
+                        <strong>
+                            {{ product.name }}
+                        </strong>
+
+                        <small>
+                            {{ product.category }}
+                        </small>
+                    </div>
+
+                    <span class="stock-warning">
+                        {{ product.stock }}
+                    </span>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <p class="empty">
+            Semua stock masih aman.
+        </p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

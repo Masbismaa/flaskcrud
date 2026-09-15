@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}
+Tambah Produk
+{% endblock %}
+
+{% block content %}
+
+<h1>Tambah Produk</h1>
+
+<form method="POST">
+
+    <div>
+        <label>Nama Produk</label>
+        <input
+            type="text"
+            name="name"
+            placeholder="Contoh: Indomie"
+            required
+        >
+    </div>
+
+    <div>
+        <label>Harga</label>
+        <input
+            type="number"
+            name="price"
+            min="0"
+            placeholder="Contoh: 3500"
+            required
+        >
+    </div>
+
+    <div>
+        <label>Stock</label>
+        <input
+            type="number"
+            name="stock"
+            min="0"
+            placeholder="Contoh: 20"
+            required
+        >
+    </div>
+
+    <div>
+        <label>Kategori</label>
+        <select name="category" required>
+            <option value="">
+                Pilih kategori
+            </option>
+            <option value="Sembako">
+                Sembako
+            </option>
+            <option value="Makanan">
+                Makanan
+            </option>
+            <option value="Minuman">
+                Minuman
+            </option>
+            <option value="Peralatan">
+                Peralatan
+            </option>
+        </select>
+    </div>
+
+    <button type="submit">
+        Simpan
+    </button>
+</form>
+{% endblock %}
