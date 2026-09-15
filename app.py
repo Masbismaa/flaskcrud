@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_migrate import Migrate
 
 from config import Config
 from models import db
@@ -13,11 +14,10 @@ def create_app():
 
     db.init_app(app)
 
+    migrate = Migrate(app, db)
+
     app.register_blueprint(product_bp)
-
-    with app.app_context():
-        db.create_all()
-
+    
     return app
 
 app = create_app()
