@@ -45,32 +45,15 @@ Edit Produk
 
     <div>
         <label>Kategori</label>
-
         <select name="category" required>
-            <option
-                value="Sembako"
-                {% if product.category == "Sembako" %}selected{% endif %}
-            >
-                Sembako
-            </option>
-            <option
-                value="Makanan"
-                {% if product.category == "Makanan" %}selected{% endif %}
-            >
-                Makanan
-            </option>
-            <option
-                value="Minuman"
-                {% if product.category == "Minuman" %}selected{% endif %}
-            >
-                Minuman
-            </option>
-            <option
-                value="Peralatan"
-                {% if product.category == "Peralatan" %}selected{% endif %}
-            >
-                Peralatan
-            </option>
+            {% for category in categories %}
+                <option
+                value="{{ category.id }}"
+                {% if category.id == product.category %}selected{% endif %}
+                >
+                    {{ category.name }}
+                </option>
+            {% endfor %}
         </select>
     </div>
 

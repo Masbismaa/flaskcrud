@@ -60,11 +60,11 @@ def add_product():
         stock = request.form["stock"]
         category_id = request.form["category_id"]
 
-        product = product(
+        product = Product(
             name=name,
             price=price,
             stock=stock,
-            category_id=category_id
+            category=category_id
         )
 
         db.session.add(product)
@@ -100,9 +100,12 @@ def edit_product(id):
             url_for("product.index")
         )
 
+    categories = Category.query.all()
+
     return render_template(
         "edit.html",
-        product=product
+        product=product,
+        categories=categories
     )
 
 
