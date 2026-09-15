@@ -44,22 +44,15 @@ Tambah Produk
 
     <div>
         <label>Kategori</label>
-        <select name="category" required>
+        <select name="category_id" required>
             <option value="">
-                Pilih kategori
+                Pilih Kategori
             </option>
-            <option value="Sembako">
-                Sembako
+            {%for category in categories %}
+            <option value="{{category.id}}">
+                {{category.name}}
             </option>
-            <option value="Makanan">
-                Makanan
-            </option>
-            <option value="Minuman">
-                Minuman
-            </option>
-            <option value="Peralatan">
-                Peralatan
-            </option>
+            {%endfor%}
         </select>
     </div>
 

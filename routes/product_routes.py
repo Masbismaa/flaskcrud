@@ -6,7 +6,7 @@ from flask import (
     url_for
 )
 
-from models import db, Product
+from models import db, Product, Category
 
 product_bp = Blueprint(
     "product",
@@ -50,19 +50,21 @@ def dashboard():
 
 @product_bp.route("/add", methods=["GET", "POST"])
 def add_product():
+    categories = Category.query.order_by(
+        Category.name.asc()
+    ).all()
 
     if request.method == "POST":
-
         name = request.form["name"]
         price = request.form["price"]
         stock = request.form["stock"]
-        category = request.form["category"]
+        category_id = request.form["category_id"]
 
-        product = Product(
+        product = product(
             name=name,
             price=price,
             stock=stock,
-            category=category
+            category_id=category_id
         )
 
         db.session.add(product)
@@ -71,8 +73,10 @@ def add_product():
         return redirect(
             url_for("product.index")
         )
-
-    return render_template("add.html")
+    return render_template(
+        "add.html",
+        categories=categories
+    )
 
 
 @product_bp.route(
