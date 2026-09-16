@@ -17,3 +17,23 @@ class Product(db.Model):
     price = db.Column(db.Integer, nullable=False)
     stock = db.Column(db.Integer, nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=False)
+
+class Sale(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    total = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, server_default=db.func.now())
+    items = db.relationship("SaleItem",
+                      backref = "sale",
+                      lazy = True,
+                      cascade = "all, delete-orphan")
+
+class SaleItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    sale_id = db.Column(db.Integer, db.ForeignKey("sale.id"), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey("product.id"), nullable=False)
+    quatity = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Integer, nullable=False)
+    product = db.relationship(
+        "Product",
+        backref="sale_items"
+    )
