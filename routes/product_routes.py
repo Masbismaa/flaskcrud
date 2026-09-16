@@ -64,7 +64,7 @@ def add_product():
             name=name,
             price=price,
             stock=stock,
-            category=category_id
+            category_id=category_id
         )
 
         db.session.add(product)
@@ -92,7 +92,7 @@ def edit_product(id):
         product.name = request.form["name"]
         product.price = request.form["price"]
         product.stock = request.form["stock"]
-        product.category = request.form["category"]
+        product.category_id = request.form["category"]
 
         db.session.commit()
 
