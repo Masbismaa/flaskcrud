@@ -6,54 +6,101 @@ Transaksi
 
 {% block content %}
 
-<div class="header">
+<div class="page-header">
 
     <div>
-        <h1>Transaksi Penjualan</h1>
-        <p>Riwayat transaksi penjualan.</p>
+        <h1>
+            Transaksi
+        </h1>
+
+        <p>
+            Daftar transaksi penjualan.
+        </p>
     </div>
 
-    <a href="{{url_for('sale.add_sale')}}" class="btn">Transaksi Baru</a>
+    <a
+        href="{{ url_for('sale.add_sale') }}"
+        class="btn"
+    >
+        + Tambah Transaksi
+    </a>
 
 </div>
 
+
 <div class="dashboard-card">
+
+    <div class="card-header">
+
+        <div>
+            <h2>
+                Riwayat Transaksi
+            </h2>
+
+            <p class="card-description">
+                Daftar seluruh transaksi penjualan.
+            </p>
+        </div>
+
+    </div>
+
 
     {% if sales %}
 
-        <table>
+        <div class="table-wrapper">
 
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Total</th>
-                    <th>Tanggal</th>
-                </tr>
-            </thead>
+            <table>
 
-            <tbody>
+                <thead>
 
-                {% for sale in sales %}
+                    <tr>
+                        <th>ID</th>
+                        <th>Total</th>
+                        <th>Tanggal</th>
+                        <th>Aksi</th>
+                    </tr>
 
-                <tr>
-                    <td>
-                        #{{ sale.id }}
-                    </td>
+                </thead>
 
-                    <td>
-                        Rp {{ "{:,.0f}".format(sale.total).replace(",", ".") }}
-                    </td>
 
-                    <td>
-                        {{ sale.created_at.strftime("%d-%m-%Y %H:%M") }}
-                    </td>
-                </tr>
+                <tbody>
 
-                {% endfor %}
+                    {% for sale in sales %}
 
-            </tbody>
+                        <tr>
 
-        </table>
+                            <td>
+                                #{{ sale.id }}
+                            </td>
+
+                            <td>
+                                Rp {{ "{:,.0f}".format(sale.total).replace(",", ".") }}
+                            </td>
+
+                            <td>
+                                {{ sale.created_at.strftime("%d-%m-%Y %H:%M") }}
+                            </td>
+
+                            <td>
+
+                                <a
+                                    href="{{ url_for('sale.detail_sale', sale_id=sale.id) }}"
+                                    class="btn btn-small"
+                                >
+                                    Detail
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     {% else %}
 

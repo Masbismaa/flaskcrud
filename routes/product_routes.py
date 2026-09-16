@@ -43,7 +43,7 @@ def dashboard():
     ).all()
 
     recent_sales = Sale.query.order_by(
-        Sale.created_at.desc()
+        Sale.created_at.asc()
     ).limit(5).all()
 
     return render_template(

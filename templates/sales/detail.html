@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}
+Detail Transaksi #{{ sale.id }}
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+        <h1>
+            Detail Transaksi #{{ sale.id }}
+        </h1>
+
+        <p>
+            {{ sale.created_at.strftime("%d-%m-%Y %H:%M") }}
+        </p>
+    </div>
+
+    <a
+        href="{{ url_for('sale.index') }}"
+        class="btn"
+    >
+        Kembali
+    </a>
+
+</div>
+
+
+<div class="dashboard-card">
+
+    <div class="card-header">
+
+        <div>
+            <h2>
+                Daftar Produk
+            </h2>
+        </div>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Produk</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                    <th>Subtotal</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for item in sale.items %}
+
+                    <tr>
+
+                        <td>
+                            {{ item.product.name }}
+                        </td>
+
+                        <td>
+                            Rp {{ "{:,.0f}".format(item.price).replace(",", ".") }}
+                        </td>
+
+                        <td>
+                            {{ item.quantity }}
+                        </td>
+
+                        <td>
+                            Rp {{ "{:,.0f}".format(item.price * item.quantity).replace(",", ".") }}
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <div class="transaction-total">
+
+        <span>
+            Total Transaksi
+        </span>
+
+        <strong>
+            Rp {{ "{:,.0f}".format(sale.total).replace(",", ".") }}
+        </strong>
+
+    </div>
+
+</div>
+
+{% endblock %}

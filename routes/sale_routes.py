@@ -17,12 +17,21 @@ sale_bp = Blueprint(
 @sale_bp.route("/")
 def index():
     sales = Sale.query.order_by(
-        Sale.created_at.desc()
+        Sale.created_at.asc()
     ).all()
 
     return render_template(
         "sales/index.html",
         sales=sales
+    )
+
+@sale_bp.route("/<int:sale_id>")
+def detail_sale(sale_id):
+    sale = Sale.query.get_or_404(sale_id)
+
+    return render_template(
+        "sales/detail.html",
+        sale = sale
     )
 
 @sale_bp.route("/add", methods=["GET", "POST"])
