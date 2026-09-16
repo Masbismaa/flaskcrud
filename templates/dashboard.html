@@ -105,29 +105,53 @@ Dashboard
 
         <div class="low-stock-list">
 
-            {% for product in low_stock %}
+    {% for product in low_stock %}
 
-                <div class="stock-item">
+        <div class="stock-item">
 
-                    <div>
-                        <strong>
-                            {{ product.name }}
-                        </strong>
+            <div class="stock-info">
 
-                        <small>
-                            {{ product.category }}
-                        </small>
+                <div class="stock-name">
+                    <strong>
+                        {{ product.name }}
+                    </strong>
+
+                    <small>
+                        {{ product.category }}
+                    </small>
+                </div>
+
+                <div class="stock-bar">
+
+                    <div class="stock-progress" style="width: {{ (product.stock / 5 * 100) }}%;">
                     </div>
+
+                </div>
+
+                </div>
+                <div class="stock-status">
 
                     <span class="stock-warning">
                         {{ product.stock }}
                     </span>
 
+                    <small>
+                        {% if product.stock == 0 %}
+                            Habis
+                        {% elif product.stock <= 2 %}
+                            Kritis
+                        {% else %}
+                            Menipis
+                        {% endif %}
+                    </small>
+
                 </div>
 
-            {% endfor %}
+            </div>
 
-        </div>
+        {% endfor %}
+
+    </div>
 
     {% else %}
 
