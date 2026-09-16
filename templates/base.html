@@ -13,13 +13,48 @@
 <body>
 
     <nav>
-        <h2>Flask CRUD</h2>
-        <div class="nav-links">
-            <a href="{{url_for('product.dashboard')}}">Dashboard</a>
-            <a href="{{url_for('product.index')}}">Produk</a>
-            <a href="{{url_for('category.index')}}">Kategori</a>
-            <a href="{{url_for('sale.index')}}">Transaksi</a>
+        <div class="brand">
+            <div class="brand-icon">
+                M
+            </div>
+
+            <div>
+                <h2>MBISMAP</h2>
+                <span>Inventory System</span>
+            </div>
         </div>
+
+
+        <div class="nav-links">
+            <a
+                href="{{ url_for('product.dashboard') }}"
+                class="{% if request.endpoint == 'product.dashboard' %}active{% endif %}"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="{{ url_for('product.index') }}"
+                class="{% if request.endpoint == 'product.index' %}active{% endif %}"
+            >
+                Produk
+            </a>
+
+            <a
+                href="{{ url_for('category.index') }}"
+                class="{% if request.endpoint == 'category.index' %}active{% endif %}"
+            >
+                Kategori
+            </a>
+
+            <a
+                href="{{ url_for('sale.index') }}"
+                class="{% if request.endpoint == 'sale.index' %}active{% endif %}"
+            >
+                Transaksi
+            </a>
+        </div>
+
     </nav>
 
     <main>
