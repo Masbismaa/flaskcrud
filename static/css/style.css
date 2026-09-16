@@ -483,7 +483,7 @@ select:focus {
 .stat-card {
     background: var(--surface);
 
-    padding: 24px;
+    padding: 22px;
 
     border-radius: var(--radius);
 
@@ -492,6 +492,12 @@ select:focus {
     box-shadow:
         0 5px 20px rgba(0, 0, 0, 0.03);
 
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
     transition:
         transform 0.2s ease,
         box-shadow 0.2s ease;
@@ -499,10 +505,39 @@ select:focus {
 
 
 .stat-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
 
     box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.07);
+        0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #eff6ff;
+
+    border-radius: 12px;
+
+    font-size: 22px;
+}
+
+
+.stat-icon.danger {
+    background: #fef2f2;
+}
+
+
+.stat-content {
+    min-width: 0;
 }
 
 
@@ -511,14 +546,27 @@ select:focus {
 
     color: var(--text-muted);
 
-    font-size: 14px;
+    font-size: 13px;
 
-    margin-bottom: 8px;
+    margin-bottom: 3px;
 }
 
 
 .stat-card strong {
-    font-size: 30px;
+    display: block;
+
+    font-size: 28px;
+
+    line-height: 1.2;
+
+    margin-bottom: 2px;
+}
+
+
+.stat-card small {
+    color: #9ca3af;
+
+    font-size: 11px;
 }
 
 

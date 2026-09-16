@@ -23,33 +23,63 @@ Dashboard
 
     <div class="stat-card">
 
-        <span>Total Produk</span>
+        <div class="stat-icon">
+            📦
+        </div>
 
-        <strong>
-            {{ total_products }}
-        </strong>
+        <div class="stat-content">
+            <span>Total Produk</span>
+
+            <strong>
+                {{ total_products }}
+            </strong>
+
+            <small>
+                Produk terdaftar
+            </small>
+        </div>
 
     </div>
 
 
     <div class="stat-card">
 
-        <span>Total Stock</span>
+        <div class="stat-icon">
+            📊
+        </div>
 
-        <strong>
-            {{ total_stock }}
-        </strong>
+        <div class="stat-content">
+            <span>Total Stok</span>
+
+            <strong>
+                {{ total_stock }}
+            </strong>
+
+            <small>
+                Unit tersedia
+            </small>
+        </div>
 
     </div>
 
 
     <div class="stat-card">
 
-        <span>Stock Habis</span>
+        <div class="stat-icon danger">
+            ⚠️
+        </div>
 
-        <strong>
-            {{ out_of_stock }}
-        </strong>
+        <div class="stat-content">
+            <span>Stok Habis</span>
+
+            <strong>
+                {{ out_of_stock }}
+            </strong>
+
+            <small>
+                Perlu diperhatikan
+            </small>
+        </div>
 
     </div>
 
