@@ -105,7 +105,7 @@ Dashboard
 
         <div class="low-stock-list">
 
-    {% for product in low_stock %}
+        {% for product in low_stock %}
 
         <div class="stock-item">
 
@@ -157,6 +157,79 @@ Dashboard
 
         <p class="empty">
             Semua stock masih aman.
+        </p>
+
+    {% endif %}
+
+</div>
+
+<div class="dashboard-card recent-sales-card">
+
+    <div class="card-header">
+
+        <div>
+            <h2>
+                Transaksi Terbaru
+            </h2>
+
+            <p class="card-description">
+                5 transaksi terakhir.
+            </p>
+        </div>
+
+        <a
+            href="{{ url_for('sale.index') }}"
+            class="card-link"
+        >
+            Lihat Semua
+        </a>
+
+    </div>
+
+
+    {% if recent_sales %}
+
+        <div class="recent-sales-list">
+
+            {% for sale in recent_sales %}
+
+                <div class="sale-item">
+
+                    <div class="sale-info">
+
+                        <div class="sale-icon">
+                            #
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Transaksi #{{ sale.id }}
+                            </strong>
+
+                            <small>
+                                {{ sale.created_at.strftime("%d-%m-%Y %H:%M") }}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <strong class="sale-total">
+                        Rp {{ "{:,.0f}".format(sale.total).replace(",", ".") }}
+                    </strong>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <p class="empty">
+            Belum ada transaksi.
         </p>
 
     {% endif %}

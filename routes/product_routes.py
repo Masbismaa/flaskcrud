@@ -6,7 +6,7 @@ from flask import (
     url_for
 )
 
-from models import db, Product, Category
+from models import db, Product, Category, Sale
 
 product_bp = Blueprint(
     "product",
@@ -41,10 +41,15 @@ def dashboard():
     ).order_by(
         Product.stock.asc()
     ).all()
+
+    recent_sales = Sale.query.order_by(
+        Sale.created_at.desc()
+    ).limit(5).all()
+
     return render_template(
         "dashboard.html", total_products = total_products,
         total_stock = total_stock, out_of_stock = out_of_stock,
-        low_stock = low_stock
+        low_stock = low_stock, recent_sales = recent_sales
     )
 
 
