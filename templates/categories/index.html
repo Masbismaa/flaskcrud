@@ -29,6 +29,7 @@ Kategori
                 <tr>
                     <th>ID</th>
                     <th>Nama Kategori</th>
+                    <th>Jumlah Produk</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -47,6 +48,10 @@ Kategori
                         <span class="category">
                             {{ category.name }}
                         </span>
+                    </td>
+
+                    <td>
+                        {{category.products|length}} Produk
                     </td>
 
                     <td>

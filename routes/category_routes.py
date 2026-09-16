@@ -3,7 +3,8 @@ from flask import(
     render_template,
     request,
     redirect,
-    url_for
+    url_for,
+    flash
 )
 
 from models import db, Category
@@ -64,8 +65,22 @@ def edit_category(id):
 def delete_category(id):
     category = Category.query.get_or_404(id)
 
+    if category.products:
+
+        flash(
+            "Kategori tidak dapat dihapus karena masih memiliki produk!"
+        )
+
+        return redirect(
+            url_for("category.index")
+        )
+
     db.session.delete(category)
     db.session.commit()
+
+    flash(
+        "Kategori berhasil dihapus."
+    )
 
     return redirect(
         url_for("category.index")
