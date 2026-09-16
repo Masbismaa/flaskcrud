@@ -6,6 +6,7 @@ from models import db
 
 from routes.product_routes import product_bp
 from routes.category_routes import category_bp
+from routes.sale_routes import sale_bp
 
 def create_app():
 
@@ -19,6 +20,7 @@ def create_app():
 
     app.register_blueprint(product_bp)
     app.register_blueprint(category_bp)
+    app.register_blueprint(sale_bp)
     
     return app
 

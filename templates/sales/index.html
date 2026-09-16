@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}
+Transaksi
+{% endblock %}
+
+{% block content %}
+
+<div class="header">
+
+    <div>
+        <h1>Transaksi Penjualan</h1>
+        <p>Riwayat transaksi penjualan.</p>
+    </div>
+
+    <a href="{{url_for('sale.add_sale')}}" class="btn">Transaksi Baru</a>
+
+</div>
+
+<div class="dashboard-card">
+
+    {% if sales %}
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Total</th>
+                    <th>Tanggal</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for sale in sales %}
+
+                <tr>
+                    <td>
+                        #{{ sale.id }}
+                    </td>
+
+                    <td>
+                        Rp {{ "{:,.0f}".format(sale.total).replace(",", ".") }}
+                    </td>
+
+                    <td>
+                        {{ sale.created_at.strftime("%d-%m-%Y %H:%M") }}
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% else %}
+
+        <p class="empty">
+            Belum ada transaksi.
+        </p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

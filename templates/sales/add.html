@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}
+Transaksi Baru
+{% endblock %}
+
+{% block content %}
+
+<div class="header">
+
+    <div>
+        <h1>Transaksi Baru</h1>
+        <p>Masukkan produk yang terjual.</p>
+    </div>
+
+</div>
+
+<div class="dashboard-card">
+
+    <form method="POST">
+
+        <label for="product_id">
+            Produk
+        </label>
+
+        <select name="product_id" id="product_id" required>
+            <option value="">
+                -- Pilih Produk --
+            </option>
+            {% for product in products %}
+                <option value="{{ product.id }}">
+                    {{ product.name }} -
+                    Rp {{ "{:,.0f}".format(product.price).replace(",", ".") }}
+                    (Stok: {{ product.stock }})
+                </option>
+            {% endfor %}
+        </select>
+
+        <label for="quantity">
+            Jumlah
+        </label>
+
+        <input type="number" name="quantity" id="quantity" min="1" required>
+
+        <button type="submit" class="btn">
+            Simpan Transaksi
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}
