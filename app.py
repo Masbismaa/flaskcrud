@@ -5,6 +5,7 @@ from config import Config
 from models import db
 
 from routes.product_routes import product_bp
+from routes.category_routes import category_bp
 
 def create_app():
 
@@ -17,6 +18,7 @@ def create_app():
     migrate = Migrate(app, db)
 
     app.register_blueprint(product_bp)
+    app.register_blueprint(category_bp)
     
     return app
 

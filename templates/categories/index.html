@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}
+Kategori
+{% endblock %}
+
+{% block content %}
+
+<div class="header">
+
+    <div>
+        <h1>Kategori</h1>
+        <p>Kelola kategori produk kamu.</p>
+    </div>
+
+    <a href="{{url_for('category.add_category')}}" class="btn">
+        Tambah Kategori
+    </a>
+
+</div>
+
+<div class="dashboard-card">
+
+    {% if categories %}
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama Kategori</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for category in categories %}
+
+                <tr>
+
+                    <td>
+                        {{ category.id }}
+                    </td>
+
+                    <td>
+                        <span class="category">
+                            {{ category.name }}
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="{{ url_for('category.edit_category', id=category.id) }}"
+                            class="btn-edit"
+                        >
+                            Edit
+                        </a>
+
+                        <form
+                            action="{{ url_for('category.delete_category', id=category.id) }}"
+                            method="POST"
+                            class="delete-form"
+                        >
+
+                            <button
+                                type="submit"
+                                class="btn-delete"
+                            >
+                                Hapus
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% else %}
+
+        <p class="empty">
+            Belum ada kategori.
+        </p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

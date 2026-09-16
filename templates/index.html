@@ -44,7 +44,7 @@ Daftar Produk
         <tr>
             <th>ID</th>
             <th>Nama</th>
-            <th>kategori</th>
+            <th>Kategori</th>
             <th>Harga</th>
             <th>Stock</th>
             <th>Aksi</th>
@@ -58,7 +58,7 @@ Daftar Produk
         <tr>
 
             <td>
-                {{ product.id }}
+                {{ loop.index }}
             </td>
 
             <td>
@@ -67,7 +67,7 @@ Daftar Produk
 
             <td>
                 <span class="category">
-                    {{product.category}}
+                    {{product.category_obj.name}}
                 </span>
             </td>
 
