@@ -45,6 +45,11 @@ def add_sale():
 
         product = Product.query.get_or_404(product_id)
 
+        if quantity > product.stock:
+            return "Stok penuh tidak mencukupi", 400
+
+        product.stock -= quantity
+
         total = product.price * quantity
 
         sale = Sale(
