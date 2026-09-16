@@ -29,6 +29,7 @@ def index():
 @category_bp.route("/add", methods=["GET", "POST"])
 def add_category():
     if request.method == "POST":
+        name = request.form["name"]
         category = Category(
             name = name
         )
@@ -52,7 +53,7 @@ def edit_category(id):
         db.session.commit()
 
         return redirect(
-            url_for("categories.index")
+            url_for("category.index")
         )
     return render_template(
         "categories/edit.html",
