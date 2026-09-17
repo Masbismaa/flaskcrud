@@ -24,9 +24,7 @@
 }
 
 
-/* =========================
-   BODY
-========================= */
+/*BODY*/
 
 body {
     font-family: Arial, sans-serif;
@@ -38,9 +36,7 @@ body {
 }
 
 
-/* =========================
-   NAVBAR
-========================= */
+/*NAVBAR*/
 
 nav {
     background: #111827;
@@ -97,9 +93,7 @@ nav h2 {
 }
 
 
-/* =========================
-   MAIN
-========================= */
+/*MAIN*/
 
 main {
     max-width: 1100px;
@@ -110,9 +104,7 @@ main {
 }
 
 
-/* =========================
-   HEADINGS
-========================= */
+/*HEADINGS*/
 
 h1 {
     font-size: 30px;
@@ -129,9 +121,7 @@ h1 {
 }
 
 
-/* =========================
-   HEADER
-========================= */
+/*HEADER*/
 
 .header {
     display: flex;
@@ -148,9 +138,7 @@ h1 {
 }
 
 
-/* =========================
-   BUTTON
-========================= */
+/*BUTTON*/
 
 .btn {
     display: inline-block;
@@ -214,9 +202,7 @@ button:hover {
 }
 
 
-/* =========================
-   TABLE
-========================= */
+/*TABLE*/
 
 table {
     width: 100%;
@@ -276,9 +262,7 @@ td:last-child {
 }
 
 
-/* =========================
-   FORM
-========================= */
+/*FORM*/
 
 form {
     background: var(--surface);
@@ -340,9 +324,7 @@ select:focus {
 }
 
 
-/* =========================
-   EDIT BUTTON
-========================= */
+/*EDIT BUTTON*/
 
 .btn-edit {
     display: inline-block;
@@ -374,9 +356,7 @@ select:focus {
 }
 
 
-/* =========================
-   DELETE BUTTON
-========================= */
+/*DELETE BUTTON*/
 
 .btn-delete {
     background: var(--danger);
@@ -407,9 +387,7 @@ select:focus {
 }
 
 
-/* =========================
-   TOOLBAR
-========================= */
+/*TOOLBAR*/
 
 .toolbar {
     display: flex;
@@ -439,9 +417,7 @@ select:focus {
 }
 
 
-/* =========================
-   CATEGORY BADGE
-========================= */
+/*CATEGORY BADGE*/
 
 .category {
     display: inline-block;
@@ -460,9 +436,7 @@ select:focus {
 }
 
 
-/* =========================
-   DASHBOARD
-========================= */
+/*DASHBOARD*/
 
 .dashboard-header {
     margin-bottom: 25px;
@@ -570,9 +544,7 @@ select:focus {
 }
 
 
-/* =========================
-   DASHBOARD CARD
-========================= */
+/*DASHBOARD CARD*/
 
 .dashboard-card {
     background: var(--surface);
@@ -612,9 +584,7 @@ select:focus {
 }
 
 
-/* =========================
-   STOCK
-========================= */
+/*STOCK*/
 
 .stock-item {
     display: flex;
@@ -661,9 +631,7 @@ select:focus {
 }
 
 
-/* =========================
-   STOCK PROGRESS
-========================= */
+/*STOCK PROGRESS*/
 
 .stock-bar {
     width: 100%;
@@ -693,9 +661,7 @@ select:focus {
 }
 
 
-/* =========================
-   STOCK STATUS
-========================= */
+/*STOCK STATUS*/
 
 .stock-status {
     display: flex;
@@ -734,9 +700,7 @@ select:focus {
 }
 
 
-/* =========================
-   EMPTY
-========================= */
+/*EMPTY*/
 
 .empty {
     color: var(--text-muted);
@@ -747,9 +711,7 @@ select:focus {
 }
 
 
-/* =========================
-   FLASH MESSAGE
-========================= */
+/*FLASH MESSAGE*/
 
 .flash-message {
     background: #ecfdf5;
@@ -785,9 +747,7 @@ select:focus {
 }
 
 
-/* =========================
-   MOBILE
-========================= */
+/*MOBILE*/
 
 @media (max-width: 700px) {
 
@@ -875,10 +835,7 @@ select:focus {
 
 }
 
-/* =========================
-   BRAND
-========================= */
-
+/*BRAND*/
 .brand {
     display: flex;
 
@@ -945,9 +902,7 @@ select:focus {
     background: #1d4ed8;
 }
 
-/* =========================
-   RECENT SALES
-========================= */
+/*RECENT SALES*/
 
 .card-description {
     color: var(--text-muted);

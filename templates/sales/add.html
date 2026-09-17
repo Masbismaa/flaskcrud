@@ -9,44 +9,195 @@ Transaksi Baru
 <div class="header">
 
     <div>
-        <h1>Transaksi Baru</h1>
-        <p>Masukkan produk yang terjual.</p>
+        <h1>
+            Transaksi Baru
+        </h1>
+
+        <p>
+            Tambahkan produk ke keranjang.
+        </p>
     </div>
 
 </div>
 
+
+<!-- FORM TAMBAH PRODUK -->
+
 <div class="dashboard-card">
 
-    <form method="POST">
+    <div class="card-header">
+
+        <div>
+            <h2>
+                Tambah Produk
+            </h2>
+
+            <p class="card-description">
+                Pilih produk dan jumlah yang terjual.
+            </p>
+        </div>
+
+    </div>
+
+
+    <form
+        method="POST"
+        action="{{ url_for('sale.add_to_cart') }}"
+    >
 
         <label for="product_id">
             Produk
         </label>
 
-        <select name="product_id" id="product_id" required>
+        <select
+            name="product_id"
+            id="product_id"
+            required
+        >
+
             <option value="">
                 -- Pilih Produk --
             </option>
+
             {% for product in products %}
+
                 <option value="{{ product.id }}">
+
                     {{ product.name }} -
                     Rp {{ "{:,.0f}".format(product.price).replace(",", ".") }}
+
                     (Stok: {{ product.stock }})
+
                 </option>
+
             {% endfor %}
+
         </select>
+
 
         <label for="quantity">
             Jumlah
         </label>
 
-        <input type="number" name="quantity" id="quantity" min="1" required>
+        <input
+            type="number"
+            name="quantity"
+            id="quantity"
+            min="1"
+            required
+        >
 
-        <button type="submit" class="btn">
-            Simpan Transaksi
+
+        <button
+            type="submit"
+            class="btn"
+        >
+            + Tambah ke Keranjang
         </button>
 
     </form>
+
+</div>
+
+
+<!-- KERANJANG -->
+
+<div class="dashboard-card">
+
+    <div class="card-header">
+
+        <div>
+            <h2>
+                Keranjang
+            </h2>
+
+            <p class="card-description">
+                Produk yang akan dimasukkan ke transaksi.
+            </p>
+        </div>
+
+    </div>
+
+
+    {% if cart_items %}
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Produk</th>
+                        <th>Harga</th>
+                        <th>Jumlah</th>
+                        <th>Subtotal</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for item in cart_items %}
+
+                        <tr>
+
+                            <td>
+                                {{ item.product.name }}
+                            </td>
+
+                            <td>
+                                Rp {{ "{:,.0f}".format(item.product.price).replace(",", ".") }}
+                            </td>
+
+                            <td>
+                                {{ item.quantity }}
+                            </td>
+
+                            <td>
+                                Rp {{ "{:,.0f}".format(item.subtotal).replace(",", ".") }}
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="transaction-total">
+
+            <span>
+                Total
+            </span>
+
+            <strong>
+                Rp {{ "{:,.0f}".format(cart_total).replace(",", ".") }}
+            </strong>
+
+        </div>
+
+
+        <div class="cart-actions">
+            <form method="POST" action="{{url_for('sale.checkout')}}">
+                <button type="submit" class="btn">
+                    Simpan Transaksi
+                </button>
+            </form>
+        </div>
+
+    {% else %}
+
+        <p class="empty">
+            Keranjang masih kosong.
+        </p>
+
+    {% endif %}
 
 </div>
 

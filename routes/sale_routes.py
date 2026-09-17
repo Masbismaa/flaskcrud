@@ -3,7 +3,8 @@ from flask import(
     render_template,
     request,
     redirect,
-    url_for
+    url_for,
+    session
 )
 
 from models import db, Sale, Product, SaleItem
@@ -13,6 +14,44 @@ sale_bp = Blueprint(
     __name__,
     url_prefix="/sales"
 )
+
+def get_cart():
+    return session.get("cart", {})
+
+@sale_bp.route("/cart/add", methods=["POST"])
+def add_to_cart():
+    product_id = request.form.get("product_id")
+    quantity = request.form.get("quantity")
+
+    if not product_id or not quantity:
+        return "Product ID atau quantity tidak terkirim", 400
+
+    product_id = int(product_id)
+    quantity = int(quantity)
+
+    product = Product.query.get_or_404(product_id)
+
+    if quantity <= 0:
+        return "Quantity harus lebih dari 0", 400
+    if quantity > product.stock:
+        return "Stok produk tidak cukup", 400
+
+    cart = get_cart()
+
+    product_key = str(product_id)
+    current_quantity = cart.get(
+        product_key, 0
+    )
+
+    new_quantity = current_quantity + quantity
+    if new_quantity > product.stock:
+        return "Jumlah produk di keranjang melebihi stok", 400
+
+    cart[product_key] = new_quantity
+    session["cart"] = cart
+    return redirect(
+        url_for("sale.add_sale")
+    )
 
 @sale_bp.route("/")
 def index():
@@ -34,40 +73,79 @@ def detail_sale(sale_id):
         sale = sale
     )
 
-@sale_bp.route("/add", methods=["GET", "POST"])
+@sale_bp.route("/add")
 def add_sale():
 
     products = Product.query.order_by(
         Product.name.asc()
     ).all()
 
-    if request.method == "POST":
+    cart = get_cart()
+    cart_items = []
+    cart_total = 0
 
-        product_id = request.form.get("product_id")
-        quantity = request.form.get("quantity")
+    for product_id, quantity in cart.items():
+        product = Product.query.get(int(product_id))
+        if product:
+            subtotal = product.price * quantity
 
-        if not product_id or not quantity:
-            return "Product ID atau quantity tidak terkirim", 400
+            cart_items.append({
+                "product": product,
+                "quantity": quantity,
+                "subtotal": subtotal
+            })
+            cart_total += subtotal
+    
+    return render_template(
+        "sales/add.html",
+        products=products, cart_items=cart_items, cart_total=cart_total
+    )
 
-        product_id = int(product_id)
-        quantity = int(quantity)
+@sale_bp.route("/checkout", methods=["POST"])
+def checkout():
+    cart = get_cart()
 
-        product = Product.query.get_or_404(product_id)
+    if not cart:
+        return "Keranjang masih kosong", 400
+
+    cart_total = 0
+    cart_products = []
+
+    for product_id, quantity in cart.items():
+
+        product = Product.query.get(int(product_id))
+
+        if not product:
+            return "Produk tidak ditemukan", 404
+
+        if quantity <= 0:
+            return "Quantity tidak valid", 400
 
         if quantity > product.stock:
-            return "Stok penuh tidak mencukupi", 400
+            return f"Stok {product.name} tidak mencukupi", 400
+
+        subtotal = product.price * quantity
+
+        cart_total += subtotal
+
+        cart_products.append({
+            "product": product,
+            "quantity": quantity
+        })
+
+    sale = Sale(
+        total=cart_total
+    )
+
+    db.session.add(sale)
+    db.session.flush()
+
+    for item in cart_products:
+
+        product = item["product"]
+        quantity = item["quantity"]
 
         product.stock -= quantity
-
-        total = product.price * quantity
-
-        sale = Sale(
-            total=total
-        )
-
-        db.session.add(sale)
-
-        db.session.flush()
 
         sale_item = SaleItem(
             sale_id=sale.id,
@@ -78,12 +156,20 @@ def add_sale():
 
         db.session.add(sale_item)
 
-        db.session.commit()
+    db.session.commit()
 
-        return redirect(
-            url_for("sale.index")
+    session.pop("cart", None)
+
+    return redirect(
+        url_for(
+            "sale.detail_sale",
+            sale_id=sale.id
         )
-    return render_template(
-        "sales/add.html",
-        products=products
+    )
+
+@sale_bp.route("/cart/clear")
+def clear_cart():
+    session.pop("cart", None)
+    return redirect(
+        url_for("sale.add_sale")
     )
