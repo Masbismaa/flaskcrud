@@ -85,3 +85,77 @@ if (categoryFilter) {
     );
 
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const salesChart = document.getElementById("salesChart");
+
+    if (salesChart && window.salesChartData) {
+
+        const labels = window.salesChartData.map(
+            item => item.date
+        );
+
+        const revenues = window.salesChartData.map(
+            item => item.revenue
+        );
+
+        new Chart(salesChart, {
+            type: "line",
+
+            data: {
+                labels: labels,
+
+                datasets: [
+                    {
+                        label: "Omzet",
+                        data: revenues,
+
+                        tension: 0.4,
+
+                        fill: true
+                    }
+                ]
+            },
+
+            options: {
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+
+                                const value = context.parsed.y;
+
+                                return "Omzet: Rp " +
+                                    value.toLocaleString("id-ID");
+                            }
+                        }
+                    }
+                },
+
+                scales: {
+                    y: {
+                        beginAtZero: true,
+
+                        ticks: {
+                            callback: function(value) {
+
+                                return "Rp " +
+                                    value.toLocaleString("id-ID");
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+});

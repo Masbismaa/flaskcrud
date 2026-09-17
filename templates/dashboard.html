@@ -22,7 +22,6 @@ Dashboard
 <div class="stats">
 
     <div class="stat-card">
-
         <div class="stat-icon">
             📦
         </div>
@@ -38,12 +37,10 @@ Dashboard
                 Produk terdaftar
             </small>
         </div>
-
     </div>
 
 
     <div class="stat-card">
-
         <div class="stat-icon">
             📊
         </div>
@@ -59,12 +56,10 @@ Dashboard
                 Unit tersedia
             </small>
         </div>
-
     </div>
 
 
     <div class="stat-card">
-
         <div class="stat-icon danger">
             ⚠️
         </div>
@@ -80,9 +75,44 @@ Dashboard
                 Perlu diperhatikan
             </small>
         </div>
-
     </div>
 
+    <div class="stat-card">
+        <div class="stat-icon">
+            💰
+        </div>
+
+        <div class="stat-content">
+            <span>Omzet Hari Ini</span>
+
+            <strong>
+                Rp {{ "{:,.0f}".format(today_revenue).replace(",", ".") }}
+            </strong>
+
+            <small>
+                Pendapatan hari ini
+            </small>
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <div class="stat-icon">
+            🧾
+        </div>
+
+        <div class="stat-content">
+            <span>Transaksi Hari Ini</span>
+
+            <strong>
+                {{ today_transactions }}
+            </strong>
+
+            <small>
+                Transaksi tercatat
+            </small>
+        </div>
+    </div>
 </div>
 
 
@@ -235,5 +265,118 @@ Dashboard
     {% endif %}
 
 </div>
+
+<div class="dashboard-card">
+
+    <div class="card-header">
+
+        <div>
+            <h2>
+                Produk Terlaris
+            </h2>
+
+            <p class="card-description">
+                5 produk dengan penjualan terbanyak.
+            </p>
+        </div>
+
+    </div>
+
+
+    {% if best_selling_products %}
+
+        <div class="best-selling-list">
+
+            {% for product, category_name, total_sold in best_selling_products %}
+
+                <div class="best-selling-item">
+
+                    <div class="best-selling-rank">
+                        {{ loop.index }}
+                    </div>
+
+                    <div class="best-selling-info">
+
+                        <strong>
+                            {{ product.name }}
+                        </strong>
+
+                        <small>
+                            {{ category_name }}
+                        </small>
+
+                    </div>
+
+                    <div class="best-selling-total">
+
+                        <strong>
+                            {{ total_sold }}
+                        </strong>
+
+                        <small>
+                            terjual
+                        </small>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <p class="empty">
+            Belum ada data penjualan.
+        </p>
+
+    {% endif %}
+
+</div>
+
+<div class="dashboard-card">
+    <div class="card-header">
+        <div>
+            <h2>Grafik Penjualan</h2>
+
+            <p class="card-description">
+                Omzet penjualan berdasarkan periode.
+            </p>
+        </div>
+        <form method="GET" class="chart-filter">
+            <select
+                name="period"
+                onchange="this.form.submit()"
+            >
+
+                <option
+                    value="7"
+                    {% if period == "7" %}selected{% endif %}
+                >
+                    7 Hari
+                </option>
+
+                <option
+                    value="30"
+                    {% if period == "30" %}selected{% endif %}
+                >
+                    30 Hari
+                </option>
+            </select>
+        </form>
+    </div>
+    <div class="chart-container">
+        <canvas id="salesChart"></canvas>
+    </div>
+</div>
+
+<script>
+    window.salesChartData = {{sales_chart|tojson}};
+</script>
+
+{%block scripts%}
+<script src="{{url_for('static', filename='js/script.js')}}"></script>
+{%endblock%}
 
 {% endblock %}

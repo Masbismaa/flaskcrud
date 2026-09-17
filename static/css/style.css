@@ -1091,3 +1091,86 @@ select:focus {
     }
 
 }
+
+.best-selling-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.best-selling-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.best-selling-item:last-child {
+    border-bottom: none;
+}
+
+.best-selling-rank {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #eff6ff;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.best-selling-info {
+    flex: 1;
+}
+
+.best-selling-info strong {
+    display: block;
+    font-size: 14px;
+}
+
+.best-selling-info small {
+    display: block;
+    margin-top: 3px;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.best-selling-total {
+    text-align: right;
+}
+
+.best-selling-total strong {
+    display: block;
+    font-size: 14px;
+}
+
+.best-selling-total small {
+    display: block;
+    margin-top: 2px;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.chart-container{
+    position: relative;
+    height: 300px;
+    margin-top: 10px;
+}
+
+.chart-filter {
+    margin: 0;
+}
+
+.chart-filter select {
+    min-width: 110px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 13px;
+    cursor: pointer;
+}
