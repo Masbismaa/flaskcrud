@@ -8,7 +8,7 @@ from flask import (
 
 from datetime import date, timedelta
 from models import db, Product, Category, Sale, SaleItem
-from utils.auth import login_required
+from utils.auth import login_required, role_required
 
 product_bp = Blueprint(
     "product",
@@ -114,6 +114,7 @@ def dashboard():
 
 @product_bp.route("/add", methods=["GET", "POST"])
 @login_required
+@role_required("admin", "staff")
 def add_product():
     categories = Category.query.order_by(
         Category.name.asc()
@@ -146,6 +147,7 @@ def add_product():
 
 @product_bp.route("/edit/<int:id>", methods=["GET", "POST"])
 @login_required
+@role_required("admin", "staff")
 def edit_product(id):
 
     product = Product.query.get_or_404(id)
@@ -174,6 +176,7 @@ def edit_product(id):
 
 @product_bp.route("/delete/<int:id>", methods=["POST"])
 @login_required
+@role_required("admin")
 def delete_product(id):
 
     product = Product.query.get_or_404(id)

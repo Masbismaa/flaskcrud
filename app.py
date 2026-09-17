@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_migrate import Migrate
 
 from config import Config
@@ -27,6 +27,12 @@ def create_app():
     return app
 
 app = create_app()
+
+@app.errorhandler(403)
+def forbidden(error):
+    return render_template(
+        "403.html"
+    ), 403
 
 if __name__ == "__main__":
     app.run(debug=True)

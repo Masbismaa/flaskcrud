@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+Akses Ditolak
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-card">
+    <div class="card-header">
+        <div>
+            <h1>
+                Akses Ditolak
+            </h1>
+
+            <p class="card-description">
+                Kamu tidak memiliki izin untuk mengakses halaman ini.
+            </p>
+        </div>
+    </div>
+
+    <a
+        href="{{ url_for('product.dashboard') }}"
+        class="btn"
+    >
+        Kembali ke Dashboard
+    </a>
+</div>
+{% endblock %}

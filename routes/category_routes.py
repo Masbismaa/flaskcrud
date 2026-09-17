@@ -8,7 +8,7 @@ from flask import(
 )
 
 from models import db, Category
-from utils.auth import login_required
+from utils.auth import login_required, role_required
 
 category_bp = Blueprint(
     "category",
@@ -30,6 +30,7 @@ def index():
 
 @category_bp.route("/add", methods=["GET", "POST"])
 @login_required
+@role_required("admin", "staff")
 def add_category():
     if request.method == "POST":
         name = request.form["name"]
@@ -49,6 +50,7 @@ def add_category():
 
 @category_bp.route("/edit/<int:id>", methods=["GET", "POST"])
 @login_required
+@role_required("admin", "staff")
 def edit_category(id):
     category = Category.query.get_or_404(id)
     if request.method == "POST":
@@ -66,6 +68,7 @@ def edit_category(id):
 
 @category_bp.route("/delete/<int:id>", methods=["POST"])
 @login_required
+@role_required("admin")
 def delete_category(id):
     category = Category.query.get_or_404(id)
 
