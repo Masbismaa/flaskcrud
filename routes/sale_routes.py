@@ -53,6 +53,20 @@ def add_to_cart():
         url_for("sale.add_sale")
     )
 
+@sale_bp.route("/cart/remove/<int:product_id>")
+def remove_from_cart(product_id):
+    cart = get_cart()
+
+    product_key = str(product_id)
+    if product_key in cart:
+        del cart[product_key]
+
+    session["cart"] = cart
+
+    return redirect(
+        url_for("sale.add_sale")
+    )
+
 @sale_bp.route("/")
 def index():
     sales = Sale.query.order_by(

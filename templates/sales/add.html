@@ -132,6 +132,7 @@ Transaksi Baru
                         <th>Harga</th>
                         <th>Jumlah</th>
                         <th>Subtotal</th>
+                        <th>Aksi</th>
                     </tr>
 
                 </thead>
@@ -157,6 +158,12 @@ Transaksi Baru
 
                             <td>
                                 Rp {{ "{:,.0f}".format(item.subtotal).replace(",", ".") }}
+                            </td>
+
+                            <td>
+                                <a href="{{url_for('sale.remove_from_cart', product_id = item.product.id)}}">
+                                    Hapus
+                                </a>
                             </td>
 
                         </tr>
@@ -189,6 +196,9 @@ Transaksi Baru
                     Simpan Transaksi
                 </button>
             </form>
+            <a href="{{url_for('sale.clear_cart')}}" class="btn btn-danger">
+                Kosongkan Keranjang
+            </a>
         </div>
 
     {% else %}
