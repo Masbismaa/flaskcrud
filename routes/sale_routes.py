@@ -8,6 +8,7 @@ from flask import(
 )
 
 from models import db, Sale, Product, SaleItem
+from utils.auth import login_required
 
 sale_bp = Blueprint(
     "sale",
@@ -19,6 +20,7 @@ def get_cart():
     return session.get("cart", {})
 
 @sale_bp.route("/cart/add", methods=["POST"])
+@login_required
 def add_to_cart():
     product_id = request.form.get("product_id")
     quantity = request.form.get("quantity")
@@ -54,6 +56,7 @@ def add_to_cart():
     )
 
 @sale_bp.route("/cart/remove/<int:product_id>")
+@login_required
 def remove_from_cart(product_id):
     cart = get_cart()
 
@@ -68,6 +71,7 @@ def remove_from_cart(product_id):
     )
 
 @sale_bp.route("/")
+@login_required
 def index():
     sales = Sale.query.order_by(
         Sale.created_at.asc()
@@ -79,6 +83,7 @@ def index():
     )
 
 @sale_bp.route("/<int:sale_id>")
+@login_required
 def detail_sale(sale_id):
     sale = Sale.query.get_or_404(sale_id)
 
@@ -88,6 +93,7 @@ def detail_sale(sale_id):
     )
 
 @sale_bp.route("/add")
+@login_required
 def add_sale():
 
     products = Product.query.order_by(
@@ -116,6 +122,7 @@ def add_sale():
     )
 
 @sale_bp.route("/checkout", methods=["POST"])
+@login_required
 def checkout():
     cart = get_cart()
 
@@ -182,6 +189,7 @@ def checkout():
     )
 
 @sale_bp.route("/cart/clear")
+@login_required
 def clear_cart():
     session.pop("cart", None)
     return redirect(
