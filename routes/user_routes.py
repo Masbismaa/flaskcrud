@@ -117,7 +117,7 @@ def toggle_status(id):
     if user.id == session.get("user_id"):
         flash("Kamu tidak dapat menonaktifkan akun sendiri.")
         return redirect(url_for("user.index"))
-
+    
     user.is_active = not user.is_active
 
     db.session.commit()
@@ -128,3 +128,35 @@ def toggle_status(id):
         flash("User berhasil dinonaktifkan.")
 
     return redirect(url_for("user.index"))
+
+@user_bp.route("/my-password", methods=["GET", "POST"])
+@role_required("admin", "staff", "viewer")
+def change_my_password():
+    user = User.query.get_or_404(session.get("user_id"))
+
+    if request.method == "POST":
+        old_password = request.form.get("old_password")
+        new_password = request.form.get("new_password")
+        confirm_password = request.form.get("confirm_password")
+
+        if not old_password or not new_password or not confirm_password:
+            flash("Semua password wajib diisi.")
+            return redirect(url_for("user.change_my_password"))
+
+        if not user.check_password(old_password):
+            flash("Password lama salah.")
+            return redirect(url_for("user.change_my_password"))
+
+        if new_password != confirm_password:
+            flash("Konfirmasi password tida cocok!")
+            return redirect(url_for(user.change_my_password))
+
+        user.set_password(new_password)
+        db.session.commit()
+
+        flash("Password berhasil diubah!")
+        return redirect(url_for("product.dashboard"))
+    return render_template(
+        "users/change_my_password.html",
+        user = user
+    )
