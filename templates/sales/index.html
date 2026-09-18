@@ -4,6 +4,10 @@
 Transaksi
 {% endblock %}
 
+{% block extra_css%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/sales/index.css')}}">
+{% endblock %}
+
 {% block content %}
 
 <div class="page-header">

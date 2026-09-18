@@ -4,31 +4,40 @@
 Tambah Kategori
 {% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+{% endblock %}
+
 {% block content %}
 
-<h1>Tambah Kategori</h1>
+<div class="form-page">
+    <div class="form-card">
 
-<form method="POST">
+        <div class="header">
+            <div>
+                <h1>Tambah Kategori</h1>
+                <p>Isi nama kategori baru di bawah ini.</p>
+            </div>
+        </div>
 
-    <div>
+        <form method="POST">
 
-        <label>
-            Nama Kategori
-        </label>
+            <div class="form-group">
+                <label>Nama Kategori</label>
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Contoh: Elektronik"
+                    required
+                >
+            </div>
 
-        <input
-            type="text"
-            name="name"
-            placeholder="Contoh: Elektronik"
-            required
-        >
+            <button type="submit" class="btn">
+                Simpan
+            </button>
+
+        </form>
 
     </div>
-
-    <button type="submit">
-        Simpan
-    </button>
-
-</form>
-
+</div>
 {% endblock %}

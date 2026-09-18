@@ -4,34 +4,44 @@
 Edit Kategori
 {% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+{% endblock %}
+
 {% block content %}
 
-<h1>Edit Kategori</h1>
+<div class="form-page">
+    <div class="form-card">
 
-<form
-    method="POST"
-    action="{{ url_for('category.edit_category', id=category.id) }}"
->
+        <div class="header">
+            <div>
+                <h1>Edit Kategori</h1>
+                <p>Perbarui nama kategori di bawah ini.</p>
+            </div>
+        </div>
 
-    <div>
-
-        <label>
-            Nama Kategori
-        </label>
-
-        <input
-            type="text"
-            name="name"
-            value="{{ category.name }}"
-            required
+        <form
+            method="POST"
+            action="{{ url_for('category.edit_category', id=category.id) }}"
         >
 
+            <div class="form-group">
+                <label>Nama Kategori</label>
+                <input
+                    type="text"
+                    name="name"
+                    value="{{ category.name }}"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn">
+                Simpan Perubahan
+            </button>
+
+        </form>
+
     </div>
-
-    <button type="submit">
-        Simpan Perubahan
-    </button>
-
-</form>
+</div>
 
 {% endblock %}

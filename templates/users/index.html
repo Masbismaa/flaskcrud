@@ -1,18 +1,27 @@
 {% extends "base.html" %}
 
-{% block extra_css%}
-<link rel="stylesheet" href="{{url_for('static', filename='css/user/index.css')}}">
+{% block title %}
+Manajemen User
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user/index.css') }}">
 {% endblock %}
 
 {% block content %}
 
-<h1>Manajemen User</h1>
+<div class="header">
+    <div>
+        <h1>Manajemen User</h1>
+        <p>Kelola akun pengguna sistem.</p>
+    </div>
 
-<a href="{{url_for('user.add_user')}}">
-    Tambah User
-</a>
+    <a href="{{ url_for('user.add_user') }}" class="btn">
+        + Tambah User
+    </a>
+</div>
 
-<table>
+<table id="userTable">
     <thead>
         <tr>
             <th>ID</th>
@@ -30,30 +39,32 @@
             <td>{{ user.id }}</td>
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.role }}</td>
             <td>
-                {%if user.is_active%}
-                    Aktif
-                {%else%}
-                    Non-Aktif
-                {%endif%}
+                <span class="role-badge">{{ user.role }}</span>
             </td>
             <td>
-                <a href="{{url_for('user.edit_user', id=user.id)}}">
+                {% if user.is_active %}
+                    <span class="status status-active">Aktif</span>
+                {% else %}
+                    <span class="status status-inactive">Non-Aktif</span>
+                {% endif %}
+            </td>
+            <td class="actions">
+                <a href="{{ url_for('user.edit_user', id=user.id) }}" class="btn-edit">
                     Edit Data
                 </a>
 
-                <a href="{{url_for('user.change_password', id=user.id)}}">
-                    Ubah password
+                <a href="{{ url_for('user.change_password', id=user.id) }}" class="btn-password">
+                    Ubah Password
                 </a>
 
-                <form action="{{url_for('user.toggle_status', id=user.id)}}" method="post" style="display: inline;">
-                    <button type="submit">
-                        {%if user.is_active%}
+                <form action="{{ url_for('user.toggle_status', id=user.id) }}" method="post" class="toggle-form">
+                    <button type="submit" class="{% if user.is_active %}btn-deactivate{% else %}btn-activate{% endif %}">
+                        {% if user.is_active %}
                             Non-Aktif
-                        {%else%}
+                        {% else %}
                             Aktifkan
-                        {%endif%}
+                        {% endif %}
                     </button>
                 </form>
             </td>
@@ -61,4 +72,5 @@
         {% endfor %}
     </tbody>
 </table>
+
 {% endblock %}

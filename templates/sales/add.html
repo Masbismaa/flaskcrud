@@ -4,6 +4,10 @@
 Transaksi Baru
 {% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/sales/add.css')}}">
+{% endblock %}
+
 {% block content %}
 
 <div class="header">
@@ -39,59 +43,29 @@ Transaksi Baru
 
     </div>
 
-
     <form
-        method="POST"
-        action="{{ url_for('sale.add_to_cart') }}"
-    >
+    method="POST"
+    action="{{ url_for('sale.add_to_cart') }}">
+        <div class="form-group">
+            <label for="product_id">Produk</label>
+            <select name="product_id" id="product_id" required>
+                <option value="">-- Pilih Produk --</option>
+                {% for product in products %}
+                    <option value="{{ product.id }}">
+                        {{ product.name }} -
+                        Rp {{ "{:,.0f}".format(product.price).replace(",", ".") }}
+                        (Stok: {{ product.stock }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
 
-        <label for="product_id">
-            Produk
-        </label>
+        <div class="form-group">
+            <label for="quantity">Jumlah</label>
+            <input type="number" name="quantity" id="quantity" min="1" required>
+        </div>
 
-        <select
-            name="product_id"
-            id="product_id"
-            required
-        >
-
-            <option value="">
-                -- Pilih Produk --
-            </option>
-
-            {% for product in products %}
-
-                <option value="{{ product.id }}">
-
-                    {{ product.name }} -
-                    Rp {{ "{:,.0f}".format(product.price).replace(",", ".") }}
-
-                    (Stok: {{ product.stock }})
-
-                </option>
-
-            {% endfor %}
-
-        </select>
-
-
-        <label for="quantity">
-            Jumlah
-        </label>
-
-        <input
-            type="number"
-            name="quantity"
-            id="quantity"
-            min="1"
-            required
-        >
-
-
-        <button
-            type="submit"
-            class="btn"
-        >
+        <button type="submit" class="btn">
             + Tambah ke Keranjang
         </button>
 
