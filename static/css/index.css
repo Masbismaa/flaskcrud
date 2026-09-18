@@ -1,4 +1,4 @@
-/* ===== Header ===== */
+/*Header*/
 
 .header {
     display: flex;
@@ -32,7 +32,7 @@
     background: #1d4ed8;
 }
 
-/* ===== Toolbar ===== */
+/*Toolbar*/
 
 .toolbar {
     display: flex;
@@ -63,7 +63,7 @@
     border-color: #2563eb;
 }
 
-/* ===== Table ===== */
+/*Table*/
 
 #productTable {
     width: 100%;
@@ -111,7 +111,7 @@
     font-weight: 500;
 }
 
-/* ===== Aksi ===== */
+/*Aksi*/
 
 .btn-edit {
     background: #f3f4f6;

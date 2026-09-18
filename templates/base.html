@@ -57,6 +57,7 @@
 
             <a 
                 href="{{ url_for('user.change_my_password')}}"
+                class="{% if request.endpoint == 'user.change_my_password' %}active{% endif %}"
             >
                 Ubah Password
             </a>

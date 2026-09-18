@@ -1,4 +1,4 @@
-/* ===== Login Container ===== */
+/*Login Container*/
 
 .login-container {
     min-height: calc(100vh - 64px);
@@ -18,7 +18,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
-/* ===== Header ===== */
+/*Header*/
 
 .login-header {
     text-align: center;
@@ -51,7 +51,7 @@
     margin: 0;
 }
 
-/* ===== Form ===== */
+/*Form*/
 
 .form-group {
     margin-bottom: 18px;
@@ -96,7 +96,7 @@
     background: #1d4ed8;
 }
 
-/* ===== Flash Message ===== */
+/*Flash Message*/
 
 .login-card .flash-message {
     background: #fef2f2;

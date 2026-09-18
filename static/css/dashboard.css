@@ -241,7 +241,7 @@
     color: #16a34a;
 }
 
-/* ===== Produk Terlaris ===== */
+/*Produk Terlaris*/
 
 .best-selling-list {
     display: flex;
@@ -299,7 +299,7 @@
     font-size: 12px;
 }
 
-/* ===== Grafik Penjualan ===== */
+/*Grafik Penjualan*/
 
 .chart-filter select {
     padding: 6px 10px;
