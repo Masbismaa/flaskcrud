@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Verifikasi OTP</h1>
+
+<p>
+    Kode OTP telah dibuat untuk akun:
+    <strong>{{ user.email }}</strong>
+</p>
+
+<p>
+    Masukkan kode OTP 6 digit yang kamu terima.
+</p>
+
+<form method="POST">
+
+    <div>
+        <label>OTP</label>
+
+        <input
+            type="text"
+            name="otp"
+            maxlength="6"
+            minlength="6"
+            inputmode="numeric"
+            pattern="[0-9]{6}"
+            required
+        >
+    </div>
+
+    <button type="submit">
+        Verifikasi OTP
+    </button>
+
+</form>
+
+{% endblock %}

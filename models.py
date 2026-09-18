@@ -43,6 +43,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False, unique=True)
+    phone = db.Column(db.String(20), nullable=True)
     password_hash = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(20), nullable=False, default="viewer")
     is_active = db.Column(db.Boolean, nullable=False, default=True)
@@ -54,4 +55,16 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(
             self.password_hash, password
+        )
+
+class PasswordResetOTP(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    otp_hash = db.Column(db.String(255), nullable=False)
+    expires_at = db.Column(db.DateTime, nullable=False)
+    used_at = db.Column(db.DateTime, nullable=True)
+    created_at = db.Column(db.DateTime, nullable=False, server_default=db.func.now())
+    user = db.relationship(
+        "User",
+        backref="password_reset_otps"
         )
