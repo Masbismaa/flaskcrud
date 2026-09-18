@@ -1,0 +1,126 @@
+/*Header*/
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.header p {
+    color: #6b7280;
+    margin: 0;
+}
+
+.btn {
+    background: #2563eb;
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.btn:hover {
+    background: #1d4ed8;
+}
+
+/*Card*/
+.dashboard-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+/*Table*/
+.dashboard-card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dashboard-card thead {
+    background: #f9fafb;
+}
+
+.dashboard-card th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.dashboard-card td {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: middle;
+}
+
+.dashboard-card tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.dashboard-card tbody tr:hover {
+    background: #f9fafb;
+}
+
+.category {
+    background: #eff6ff;
+    color: #2563eb;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/*Aksi*/
+.btn-edit {
+    background: #f3f4f6;
+    color: #374151;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-right: 6px;
+    display: inline-block;
+}
+
+.btn-edit:hover {
+    background: #e5e7eb;
+}
+
+.delete-form {
+    display: inline-block;
+}
+
+.btn-delete {
+    background: #fef2f2;
+    color: #ef4444;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.btn-delete:hover {
+    background: #fee2e2;
+}
+
+/*Empty State*/
+.empty {
+    color: #9ca3af;
+    font-size: 14px;
+    text-align: center;
+    padding: 24px 0;
+    margin: 0;
+}
