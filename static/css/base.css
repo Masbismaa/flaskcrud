@@ -1,0 +1,106 @@
+/* ===== Reset & Base ===== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f9fafb;
+    color: #111827;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ===== Navbar ===== */
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 12px 32px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.brand span {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.nav-links {
+    display: flex;
+    gap: 8px;
+}
+
+.nav-links a {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4b5563;
+    transition: background 0.15s, color 0.15s;
+}
+
+.nav-links a:hover {
+    background: #f3f4f6;
+    color: #111827;
+}
+
+.nav-links a.active {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+/* ===== Main Layout ===== */
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+/* ===== Flash Message ===== */
+
+.flash-message {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    color: #065f46;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}

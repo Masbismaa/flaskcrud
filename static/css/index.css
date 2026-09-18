@@ -1,0 +1,147 @@
+/* ===== Header ===== */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.header p {
+    color: #6b7280;
+    margin: 0;
+}
+
+.btn {
+    background: #2563eb;
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.btn:hover {
+    background: #1d4ed8;
+}
+
+/* ===== Toolbar ===== */
+
+.toolbar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.toolbar #searchInput {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.toolbar #categoryFilter {
+    padding: 10px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+.toolbar input:focus,
+.toolbar select:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+/* ===== Table ===== */
+
+#productTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+#productTable thead {
+    background: #f9fafb;
+}
+
+#productTable th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+#productTable td {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: middle;
+}
+
+#productTable tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#productTable tbody tr:hover {
+    background: #f9fafb;
+}
+
+.category {
+    background: #eff6ff;
+    color: #2563eb;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* ===== Aksi ===== */
+
+.btn-edit {
+    background: #f3f4f6;
+    color: #374151;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-right: 6px;
+    display: inline-block;
+}
+
+.btn-edit:hover {
+    background: #e5e7eb;
+}
+
+.delete-form {
+    display: inline-block;
+}
+
+.btn-delete {
+    background: #fef2f2;
+    color: #ef4444;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.btn-delete:hover {
+    background: #fee2e2;
+}

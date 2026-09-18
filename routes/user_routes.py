@@ -4,7 +4,8 @@ from flask import(
     redirect,
     request,
     url_for,
-    flash
+    flash,
+    session
 )
 
 from models import User, db
@@ -56,7 +57,7 @@ def add_user():
         return redirect(url_for("user.index"))
     return render_template("users/add.html")
 
-@user_bp.route("/edit<int:id>", methods=["GET", "POST"])
+@user_bp.route("/edit/<int:id>", methods=["GET", "POST"])
 @role_required("admin")
 def edit_user(id):
     user = User.query.get_or_404(id)
@@ -69,8 +70,7 @@ def edit_user(id):
         if not name or not email or not role:
             flash("Name, Email, dan Role wajib diisi!")
             return redirect(
-                url_for("user.edit_user"),
-                id=id
+                url_for("user.edit_user", id=id),
             )
 
         user.name = name
@@ -83,20 +83,48 @@ def edit_user(id):
         return redirect(url_for("user.index"))
     return render_template("users/edit.html", user=user)
 
+@user_bp.route("/change-password/<int:id>", methods=["GET", "POST"])
+@role_required("admin")
+def change_password(id):
+    user = User.query.get_or_404(id)
+    if request.method == "POST":
+        password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
 
+        if not password or not confirm_password:
+            flash("Password wajib diisi!.")
+            return redirect(
+                url_for("user.change_password", id=id)
+            )
+
+        user.set_password(password)
+        db.session.commit()
+
+        flash("Password user berhasil diubah.")
+        return redirect(
+            url_for("user.index")
+        )
+    return render_template(
+        "users/change_password.html",
+        user=user
+    )
 
 @user_bp.route("/toggle-status/<int:id>", methods=["POST"])
 @role_required("admin")
 def toggle_status(id):
     user = User.query.get_or_404(id)
+
+    if user.id == session.get("user_id"):
+        flash("Kamu tidak dapat menonaktifkan akun sendiri.")
+        return redirect(url_for("user.index"))
+
     user.is_active = not user.is_active
 
     db.session.commit()
 
     if user.is_active:
-        flash("User berhasil diaktifkan!")
+        flash("User berhasil diaktifkan.")
     else:
-        flash("User berhasil dinonaktifkan!")
-        return redirect(
-            url_for("user.index")
-        )
+        flash("User berhasil dinonaktifkan.")
+
+    return redirect(url_for("user.index"))

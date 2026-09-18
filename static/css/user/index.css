@@ -1,0 +1,167 @@
+/* ===== Header ===== */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.header p {
+    color: #6b7280;
+    margin: 0;
+}
+
+.btn {
+    background: #2563eb;
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.btn:hover {
+    background: #1d4ed8;
+}
+
+/* ===== Table ===== */
+
+#userTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+#userTable thead {
+    background: #f9fafb;
+}
+
+#userTable th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+#userTable td {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: middle;
+}
+
+#userTable tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#userTable tbody tr:hover {
+    background: #f9fafb;
+}
+
+/* ===== Role Badge ===== */
+
+.role-badge {
+    background: #f3e8ff;
+    color: #7e22ce;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* ===== Status ===== */
+
+.status {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-active {
+    background: #ecfdf5;
+    color: #16a34a;
+}
+
+.status-inactive {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+/* ===== Aksi ===== */
+
+.actions {
+    white-space: nowrap;
+}
+
+.btn-edit,
+.btn-password {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-right: 6px;
+    display: inline-block;
+}
+
+.btn-edit {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.btn-edit:hover {
+    background: #e5e7eb;
+}
+
+.btn-password {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.btn-password:hover {
+    background: #dbeafe;
+}
+
+.toggle-form {
+    display: inline-block;
+}
+
+.btn-activate,
+.btn-deactivate {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.btn-activate {
+    background: #ecfdf5;
+    color: #16a34a;
+}
+
+.btn-activate:hover {
+    background: #d1fae5;
+}
+
+.btn-deactivate {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+.btn-deactivate:hover {
+    background: #fee2e2;
+}

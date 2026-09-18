@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block extra_css%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/user/index.css')}}">
+{% endblock %}
+
 {% block content %}
 
 <h1>Manajemen User</h1>
@@ -37,6 +41,10 @@
             <td>
                 <a href="{{url_for('user.edit_user', id=user.id)}}">
                     Edit Data
+                </a>
+
+                <a href="{{url_for('user.change_password', id=user.id)}}">
+                    Ubah password
                 </a>
 
                 <form action="{{url_for('user.toggle_status', id=user.id)}}" method="post" style="display: inline;">
