@@ -38,6 +38,12 @@ def login():
                 url_for("auth.login")
             )
 
+        if not user.is_active:
+            flash("Akun kamu sedang dinonaktifkan, Hubungi admin!")
+            return redirect(
+                url_for("auth.login")
+            )
+
         session["user_id"] = user.id
         session["user_role"] = user.role
         session["user_name"] = user.name

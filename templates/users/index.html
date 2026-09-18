@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Manajemen User</h1>
+
+<a href="{{url_for('user.add_user')}}">
+    Tambah User
+</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+                {%if user.is_active%}
+                    Aktif
+                {%else%}
+                    Non-Aktif
+                {%endif%}
+            </td>
+            <td>
+                <a href="{{url_for('user.edit_user', id=user.id)}}">
+                    Edit Data
+                </a>
+
+                <form action="{{url_for('user.toggle_status', id=user.id)}}" method="post" style="display: inline;">
+                    <button type="submit">
+                        {%if user.is_active%}
+                            Non-Aktif
+                        {%else%}
+                            Aktifkan
+                        {%endif%}
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

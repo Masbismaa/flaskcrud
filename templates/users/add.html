@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Tambah User</h1>
+
+<form method="POST">
+
+    <div>
+        <label>Nama</label>
+        <input type="text" name="name" required>
+    </div>
+
+    <div>
+        <label>Email</label>
+        <input type="email" name="email" required>
+    </div>
+
+    <div>
+        <label>Password</label>
+        <input type="password" name="password" required>
+    </div>
+
+    <div>
+        <label>Role</label>
+        <select name="role" required>
+            <option value="">-- Pilih Role --</option>
+            <option value="admin">Admin</option>
+            <option value="staff">Staff</option>
+            <option value="viewer">Viewer</option>
+        </select>
+    </div>
+
+    <button type="submit">Tambah User</button>
+
+</form>
+
+{% endblock %}

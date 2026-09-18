@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Edit User</h1>
+
+<form method="POST">
+    <div>
+        <label>Nama</label>
+        <input
+            type="text"
+            name="name"
+            value="{{ user.name }}"
+            required
+        >
+    </div>
+
+    <div>
+        <label>Email</label>
+        <input
+            type="email"
+            name="email"
+            value="{{ user.email }}"
+            required
+        >
+    </div>
+
+    <div>
+        <label>Role</label>
+        <select name="role" required>
+            <option value="admin" {% if user.role == "admin" %}selected{% endif %}>
+                Admin
+            </option>
+
+            <option value="staff" {% if user.role == "staff" %}selected{% endif %}>
+                Staff
+            </option>
+
+            <option value="viewer" {% if user.role == "viewer" %}selected{% endif %}>
+                Viewer
+            </option>
+        </select>
+    </div>
+
+    <button type="submit">Simpan Perubahan</button>
+</form>
+{% endblock %}
