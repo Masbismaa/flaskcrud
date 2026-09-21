@@ -8,7 +8,7 @@ from flask import(
 )
 
 from models import db, Category
-from utils.auth import login_required, role_required
+from utils.auth import permission_required
 
 category_bp = Blueprint(
     "category",
@@ -17,7 +17,7 @@ category_bp = Blueprint(
 )
 
 @category_bp.route("/")
-@login_required
+@permission_required("category.view")
 def index():
     categories = Category.query.order_by(
         Category.name.asc()
@@ -29,8 +29,7 @@ def index():
     )
 
 @category_bp.route("/add", methods=["GET", "POST"])
-@login_required
-@role_required("admin", "staff")
+@permission_required("category.create")
 def add_category():
     if request.method == "POST":
         name = request.form["name"]
@@ -49,8 +48,7 @@ def add_category():
     )
 
 @category_bp.route("/edit/<int:id>", methods=["GET", "POST"])
-@login_required
-@role_required("admin", "staff")
+@permission_required("category.edit")
 def edit_category(id):
     category = Category.query.get_or_404(id)
     if request.method == "POST":
@@ -64,11 +62,10 @@ def edit_category(id):
     return render_template(
         "categories/edit.html",
         category=category
-    )
+    ) 
 
 @category_bp.route("/delete/<int:id>", methods=["POST"])
-@login_required
-@role_required("admin")
+@permission_required("category.delete")
 def delete_category(id):
     category = Category.query.get_or_404(id)
 

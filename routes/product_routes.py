@@ -8,7 +8,7 @@ from flask import (
 
 from datetime import date, timedelta
 from models import db, Product, Category, Sale, SaleItem
-from utils.auth import login_required, role_required
+from utils.auth import permission_required
 
 product_bp = Blueprint(
     "product",
@@ -17,7 +17,7 @@ product_bp = Blueprint(
 
 
 @product_bp.route("/")
-@login_required
+@permission_required("product.view")
 def index():
 
     products = Product.query.all()
@@ -28,7 +28,7 @@ def index():
     )
 
 @product_bp.route("/dashboard")
-@login_required
+@permission_required("dashboard.view")
 def dashboard():
     period = request.args.get("period", "7")
     total_products = Product.query.count()
@@ -113,8 +113,7 @@ def dashboard():
 
 
 @product_bp.route("/add", methods=["GET", "POST"])
-@login_required
-@role_required("admin", "staff")
+@permission_required("product.create")
 def add_product():
     categories = Category.query.order_by(
         Category.name.asc()
@@ -146,8 +145,7 @@ def add_product():
 
 
 @product_bp.route("/edit/<int:id>", methods=["GET", "POST"])
-@login_required
-@role_required("admin", "staff")
+@permission_required("product.edit")
 def edit_product(id):
 
     product = Product.query.get_or_404(id)
@@ -175,8 +173,7 @@ def edit_product(id):
 
 
 @product_bp.route("/delete/<int:id>", methods=["POST"])
-@login_required
-@role_required("admin")
+@permission_required("product.delete")
 def delete_product(id):
 
     product = Product.query.get_or_404(id)

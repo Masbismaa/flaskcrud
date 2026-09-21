@@ -1,4 +1,4 @@
-from flask import(
+from flask import (
     Blueprint,
     render_template,
     redirect,
@@ -10,7 +10,8 @@ from flask import(
 
 from models import User, db
 
-from utils.auth import role_required
+from utils.auth import login_required, permission_required
+
 
 user_bp = Blueprint(
     "user",
@@ -18,14 +19,22 @@ user_bp = Blueprint(
     url_prefix="/users"
 )
 
+
 @user_bp.route("/")
-@role_required("admin")
+@permission_required("user.view")
 def index():
-    users = User.query.order_by(User.id.asc()).all()
-    return render_template("users/index.html", users=users)
+    users = User.query.order_by(
+        User.id.asc()
+    ).all()
+
+    return render_template(
+        "users/index.html",
+        users=users
+    )
+
 
 @user_bp.route("/add", methods=["GET", "POST"])
-@role_required("admin")
+@permission_required("user.create")
 def add_user():
     if request.method == "POST":
         name = request.form.get("name")
@@ -35,17 +44,24 @@ def add_user():
 
         if not name or not email or not password or not role:
             flash("Semua field wajib diisi!")
-            return redirect(url_for("user.add_user"))
+            return redirect(
+                url_for("user.add_user")
+            )
 
-        existing_user = User.query.filter_by(email=email).first()
+        existing_user = User.query.filter_by(
+            email=email
+        ).first()
+
         if existing_user:
             flash("Email sudah digunakan.")
-            return redirect(url_for("user.add_user"))
+            return redirect(
+                url_for("user.add_user")
+            )
 
         user = User(
-            name = name,
-            email = email,
-            role = role
+            name=name,
+            email=email,
+            role=role
         )
 
         user.set_password(password)
@@ -54,11 +70,18 @@ def add_user():
         db.session.commit()
 
         flash("User berhasil dibuat.")
-        return redirect(url_for("user.index"))
-    return render_template("users/add.html")
+
+        return redirect(
+            url_for("user.index")
+        )
+
+    return render_template(
+        "users/add.html"
+    )
+
 
 @user_bp.route("/edit/<int:id>", methods=["GET", "POST"])
-@role_required("admin")
+@permission_required("user.edit")
 def edit_user(id):
     user = User.query.get_or_404(id)
 
@@ -69,8 +92,12 @@ def edit_user(id):
 
         if not name or not email or not role:
             flash("Name, Email, dan Role wajib diisi!")
+
             return redirect(
-                url_for("user.edit_user", id=id),
+                url_for(
+                    "user.edit_user",
+                    id=id
+                )
             )
 
         user.name = name
@@ -80,44 +107,80 @@ def edit_user(id):
         db.session.commit()
 
         flash("Data User berhasil di Update!")
-        return redirect(url_for("user.index"))
-    return render_template("users/edit.html", user=user)
 
-@user_bp.route("/change-password/<int:id>", methods=["GET", "POST"])
-@role_required("admin")
+        return redirect(
+            url_for("user.index")
+        )
+
+    return render_template(
+        "users/edit.html",
+        user=user
+    )
+
+
+@user_bp.route(
+    "/change-password/<int:id>",
+    methods=["GET", "POST"]
+)
+@permission_required("user.manage")
 def change_password(id):
     user = User.query.get_or_404(id)
+
     if request.method == "POST":
         password = request.form.get("password")
         confirm_password = request.form.get("confirm_password")
 
         if not password or not confirm_password:
             flash("Password wajib diisi!.")
+
             return redirect(
-                url_for("user.change_password", id=id)
+                url_for(
+                    "user.change_password",
+                    id=id
+                )
+            )
+
+        if password != confirm_password:
+            flash("Konfirmasi password tidak cocok!")
+
+            return redirect(
+                url_for(
+                    "user.change_password",
+                    id=id
+                )
             )
 
         user.set_password(password)
+
         db.session.commit()
 
         flash("Password user berhasil diubah.")
+
         return redirect(
             url_for("user.index")
         )
+
     return render_template(
         "users/change_password.html",
         user=user
     )
 
-@user_bp.route("/toggle-status/<int:id>", methods=["POST"])
-@role_required("admin")
+
+@user_bp.route(
+    "/toggle-status/<int:id>",
+    methods=["POST"]
+)
+@permission_required("user.delete")
 def toggle_status(id):
     user = User.query.get_or_404(id)
 
     if user.id == session.get("user_id"):
         flash("Kamu tidak dapat menonaktifkan akun sendiri.")
-        return redirect(url_for("user.index"))
-    
+
+        return redirect(
+            url_for("user.index")
+        )
+
     user.is_active = not user.is_active
 
     db.session.commit()
@@ -127,12 +190,20 @@ def toggle_status(id):
     else:
         flash("User berhasil dinonaktifkan.")
 
-    return redirect(url_for("user.index"))
+    return redirect(
+        url_for("user.index")
+    )
 
-@user_bp.route("/my-password", methods=["GET", "POST"])
-@role_required("admin", "staff", "viewer")
+
+@user_bp.route(
+    "/my-password",
+    methods=["GET", "POST"]
+)
+@login_required
 def change_my_password():
-    user = User.query.get_or_404(session.get("user_id"))
+    user = User.query.get_or_404(
+        session.get("user_id")
+    )
 
     if request.method == "POST":
         old_password = request.form.get("old_password")
@@ -141,22 +212,36 @@ def change_my_password():
 
         if not old_password or not new_password or not confirm_password:
             flash("Semua password wajib diisi.")
-            return redirect(url_for("user.change_my_password"))
+
+            return redirect(
+                url_for("user.change_my_password")
+            )
 
         if not user.check_password(old_password):
             flash("Password lama salah.")
-            return redirect(url_for("user.change_my_password"))
+
+            return redirect(
+                url_for("user.change_my_password")
+            )
 
         if new_password != confirm_password:
-            flash("Konfirmasi password tida cocok!")
-            return redirect(url_for(user.change_my_password))
+            flash("Konfirmasi password tidak cocok!")
+
+            return redirect(
+                url_for("user.change_my_password")
+            )
 
         user.set_password(new_password)
+
         db.session.commit()
 
         flash("Password berhasil diubah!")
-        return redirect(url_for("product.dashboard"))
+
+        return redirect(
+            url_for("product.dashboard")
+        )
+
     return render_template(
         "users/change_my_password.html",
-        user = user
+        user=user
     )

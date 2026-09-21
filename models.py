@@ -12,6 +12,37 @@ class Category(db.Model):
         lazy = True
     )
 
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.String(255), nullable=True)
+
+class Permission(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False, unique=True)
+    description = db.Column(db.String(255), nullable=True)
+
+class RolePermission(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    role_id = db.Column(db.Integer, db.ForeignKey("role.id"), nullable=False)
+    permission_id = db.Column(db.Integer, db.ForeignKey("permission.id"), nullable=False)
+    role = db.relationship(
+        "Role",
+        backref = db.backref(
+            "role_permissions",
+            lazy=True,
+            cascade="all, delete-orphan"
+        )
+    )
+    permission = db.relationship(
+        "Permission",
+        backref=db.backref(
+            "role_permissions",
+            lazy=True,
+            cascade="all, delete-orphan"
+        )
+    )
+
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
