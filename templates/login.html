@@ -5,10 +5,16 @@ Login
 {% endblock %}
 
 {% block extra_css%}
-<link rel="stylesheet" href="{{url_for('static', filename='css/auth/login.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth/login.css') }}">
 {% endblock %}
 
 {% block content %}
+
+<div class="liquid-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
 
 <div class="login-container">
 
@@ -94,7 +100,7 @@ Login
                 Login
             </button>
 
-            <a href="{{url_for('auth.forgot_password')}}">
+            <a href="{{ url_for('auth.forgot_password') }}">
                 Lupa Password?
             </a>
 
@@ -103,5 +109,9 @@ Login
     </div>
 
 </div>
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+{% endblock %}
 
 {% endblock %}
