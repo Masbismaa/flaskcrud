@@ -1,0 +1,204 @@
+/* ===== Animated Gradient Container ===== */
+
+.rp-container {
+    min-height: calc(100vh - 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(-45deg, #eff6ff, #eef2ff, #dbeafe, #e0e7ff);
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.rp-container::before,
+.rp-container::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+}
+
+.rp-container::before {
+    top: -100px;
+    right: -100px;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.18), transparent 70%);
+    animation: floatBlob 8s ease-in-out infinite;
+}
+
+.rp-container::after {
+    bottom: -120px;
+    left: -120px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.16), transparent 70%);
+    animation: floatBlob 8s ease-in-out infinite reverse;
+}
+
+@keyframes floatBlob {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(20px, 20px) scale(1.1); }
+}
+
+/* ===== Card ===== */
+
+.rp-card {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 24px;
+    padding: 44px 36px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(37, 99, 235, 0.16);
+    animation: fadeUp 0.5s ease;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Icon ===== */
+
+.rp-icon {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 18px auto;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-6px) rotate(-4deg); }
+}
+
+/* ===== Text ===== */
+
+.rp-card h1 {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0 0 6px 0;
+    background: linear-gradient(135deg, #1d4ed8, #4338ca);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.rp-desc {
+    font-size: 13.5px;
+    color: #6b7280;
+    margin: 0 0 28px 0;
+}
+
+.rp-desc strong {
+    color: #374151;
+}
+
+/* ===== Form ===== */
+
+.form-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+    margin-left: 4px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 18px;
+    border: 1.5px solid #dbeafe;
+    border-radius: 999px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #ffffff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+/* ===== Strength Meter ===== */
+
+.strength-meter {
+    width: 100%;
+    height: 6px;
+    background: #f3f4f6;
+    border-radius: 999px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.strength-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    transition: width 0.35s ease, background 0.35s ease;
+}
+
+.strength-label,
+.match-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 6px;
+    margin-left: 4px;
+    transition: color 0.2s;
+}
+
+/* ===== Button ===== */
+
+.rp-card .btn {
+    width: 100%;
+    margin-top: 6px;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    color: #ffffff;
+    padding: 13px;
+    border: none;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.rp-card .btn:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 14px 30px rgba(37, 99, 235, 0.4);
+}
+
+.rp-card .btn:active {
+    transform: translateY(0) scale(0.98);
+}

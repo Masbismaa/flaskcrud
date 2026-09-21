@@ -4,26 +4,33 @@
 Akses Ditolak
 {% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user/403.css') }}">
+{% endblock %}
+
 {% block content %}
 
-<div class="dashboard-card">
-    <div class="card-header">
-        <div>
-            <h1>
-                Akses Ditolak
-            </h1>
+<div class="error-page">
+    <div class="error-card">
 
-            <p class="card-description">
-                Kamu tidak memiliki izin untuk mengakses halaman ini.
-            </p>
+        <div class="error-icon">
+            🔒
         </div>
-    </div>
 
-    <a
-        href="{{ url_for('product.dashboard') }}"
-        class="btn"
-    >
-        Kembali ke Dashboard
-    </a>
+        <h1>Akses Ditolak</h1>
+
+        <p>
+            Kamu tidak memiliki izin untuk mengakses halaman ini.
+            Hubungi administrator kalau kamu merasa ini sebuah kesalahan.
+        </p>
+
+        <a
+            href="{{ url_for('product.dashboard') }}"
+            class="btn"
+        >
+            ← Kembali ke Dashboard
+        </a>
+
+    </div>
 </div>
 {% endblock %}

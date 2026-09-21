@@ -1,38 +1,52 @@
 {% extends "base.html" %}
 
+{% block title %}
+Verifikasi OTP
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth/otp.css') }}">
+{% endblock %}
+
 {% block content %}
 
-<h1>Verifikasi OTP</h1>
+<div class="otp-container">
+    <div class="otp-card">
 
-<p>
-    Kode OTP telah dibuat untuk akun:
-    <strong>{{ user.email }}</strong>
-</p>
+        <div class="otp-icon">
+            📩
+        </div>
 
-<p>
-    Masukkan kode OTP 6 digit yang kamu terima.
-</p>
+        <h1>Verifikasi OTP</h1>
 
-<form method="POST">
+        <p class="otp-desc">
+            Kode OTP telah dikirim ke akun
+            <strong>{{ user.email }}</strong>
+        </p>
 
-    <div>
-        <label>OTP</label>
+        <form method="POST">
 
-        <input
-            type="text"
-            name="otp"
-            maxlength="6"
-            minlength="6"
-            inputmode="numeric"
-            pattern="[0-9]{6}"
-            required
-        >
+            <div class="form-group">
+                <input
+                    type="text"
+                    name="otp"
+                    maxlength="6"
+                    minlength="6"
+                    inputmode="numeric"
+                    pattern="[0-9]{6}"
+                    placeholder="- - - - - -"
+                    autocomplete="one-time-code"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn">
+                Verifikasi OTP
+            </button>
+
+        </form>
+
     </div>
-
-    <button type="submit">
-        Verifikasi OTP
-    </button>
-
-</form>
+</div>
 
 {% endblock %}
