@@ -5,7 +5,7 @@ Daftar Produk
 {% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/product/product.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -27,13 +27,16 @@ Daftar Produk
 </div>
 
 <div class="toolbar">
-    <input 
-    type="text"
-    id="searchInput"
-    placeholder="Cari Produk"
-    >
+    <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input 
+            type="text"
+            id="searchInput"
+            placeholder="Cari Produk"
+        >
+    </div>
 
-    <select name="" id="categoryFilter">
+    <select id="categoryFilter">
         <option value="all">Semua Kategori</option>
         <option value="Sembako">Sembako</option>
         <option value="Makanan">Makanan</option>
@@ -42,89 +45,115 @@ Daftar Produk
     </select>
 </div>
 
-<table id="productTable">
+<p class="result-count" id="resultCount"></p>
 
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nama</th>
-            <th>Kategori</th>
-            <th>Harga</th>
-            <th>Stock</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
+<div class="table-wrapper">
+    <table id="productTable">
 
-    <tbody>
+        <thead>
+            <tr>
+                <th data-sort="index">ID</th>
+                <th data-sort="name">Nama <span class="sort-icon">↕</span></th>
+                <th data-sort="category">Kategori <span class="sort-icon">↕</span></th>
+                <th data-sort="price">Harga <span class="sort-icon">↕</span></th>
+                <th data-sort="stock">Stock <span class="sort-icon">↕</span></th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
 
-        {% for product in products %}
+        <tbody>
 
-        <tr>
+            {% for product in products %}
 
-            <td>
-                {{ loop.index }}
-            </td>
+            <tr
+                data-name="{{ product.name|lower }}"
+                data-category="{{ product.category_obj.name }}"
+                data-price="{{ product.price }}"
+                data-stock="{{ product.stock }}"
+            >
 
-            <td>
-                {{ product.name }}
-            </td>
+                <td>
+                    {{ loop.index }}
+                </td>
 
-            <td>
-                <span class="category">
-                    {{product.category_obj.name}}
-                </span>
-            </td>
+                <td>
+                    {{ product.name }}
+                </td>
 
-            <td>
-                Rp {{ "{:,}".format(product.price).replace(",", ".") }}
-            </td>
+                <td>
+                    <span class="category">
+                        {{ product.category_obj.name }}
+                    </span>
+                </td>
 
-            <td>
-                {{ product.stock }}
-            </td>
+                <td>
+                    Rp {{ "{:,}".format(product.price).replace(",", ".") }}
+                </td>
 
-            <td>
+                <td>
+                    {{ product.stock }}
+                </td>
 
-                <a
-                    href="{{ url_for('product.edit_product', id=product.id) }}"
-                    class="btn-edit"
-                >
-                    Edit
-                </a>
+                <td>
 
-                <form
-                    action="{{ url_for('product.delete_product', id=product.id) }}"
-                    method="POST"
-                    class="delete-form"
-                >
-
-                    <button
-                        type="submit"
-                        class="btn-delete"
+                    <a
+                        href="{{ url_for('product.edit_product', id=product.id) }}"
+                        class="btn-edit"
                     >
-                        Hapus
-                    </button>
+                        Edit
+                    </a>
 
-                </form>
+                    <form
+                        action="{{ url_for('product.delete_product', id=product.id) }}"
+                        method="POST"
+                        class="delete-form"
+                        data-product-name="{{ product.name }}"
+                    >
 
-            </td>
+                        <button
+                            type="submit"
+                            class="btn-delete"
+                        >
+                            Hapus
+                        </button>
 
-        </tr>
+                    </form>
 
-        {% else %}
+                </td>
 
-        <tr>
+            </tr>
 
-            <td colspan="5">
-                Belum ada produk.
-            </td>
+            {% else %}
 
-        </tr>
+            <tr>
 
-        {% endfor %}
+                <td colspan="6">
+                    Belum ada produk.
+                </td>
 
-    </tbody>
+            </tr>
 
-</table>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+</div>
+
+<div class="modal-overlay" id="deleteModal">
+    <div class="modal-box">
+        <div class="modal-icon">🗑️</div>
+        <h3>Hapus Produk?</h3>
+        <p>Yakin mau hapus <strong id="deleteProductName"></strong>? Data yang dihapus gak bisa dibalikin.</p>
+        <div class="modal-actions">
+            <button type="button" class="btn-cancel" id="cancelDelete">Batal</button>
+            <button type="button" class="btn-confirm-delete" id="confirmDelete">Ya, Hapus</button>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/product.js') }}"></script>
+{% endblock %}
 
 {% endblock %}
