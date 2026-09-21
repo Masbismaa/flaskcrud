@@ -26,7 +26,8 @@
         </div>
 
 
-        <div class="nav-links">
+        <div class="nav-links" id="navLinks">
+            <span class="nav-indicator" id="navIndicator"></span>
             <a
                 href="{{ url_for('product.dashboard') }}"
                 class="{% if request.endpoint == 'product.dashboard' %}active{% endif %}"
@@ -80,6 +81,7 @@
         {%endblock%}
     </main>
 
+    <script src="{{url_for('static', filename='js/base.js')}}"></script>
     <script src="{{ url_for('static', filename='js/chart.umd.min.js')}}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     {%block scripts%}

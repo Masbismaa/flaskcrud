@@ -7,7 +7,7 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f9fafb;
+    background: #f8fafc;
     color: #111827;
 }
 
@@ -22,12 +22,20 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 12px 32px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid #eef2ff;
+    padding: 14px 32px;
     position: sticky;
     top: 0;
     z-index: 10;
+    transition: padding 0.25s ease, box-shadow 0.25s ease;
+}
+
+nav.scrolled {
+    padding: 8px 32px;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
 }
 
 .brand {
@@ -37,52 +45,88 @@ nav {
 }
 
 .brand-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: #2563eb;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
     color: #ffffff;
-    font-weight: 700;
-    font-size: 16px;
+    font-weight: 800;
+    font-size: 17px;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
 }
 
 .brand h2 {
     margin: 0;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.2;
+    background: linear-gradient(135deg, #1d4ed8, #4338ca);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .brand span {
-    font-size: 12px;
-    color: #6b7280;
+    font-size: 11.5px;
+    color: #9ca3af;
+    font-weight: 500;
 }
 
 .nav-links {
     display: flex;
-    gap: 8px;
+    gap: 4px;
+    position: relative;
+}
+
+.nav-indicator {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.28);
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
 }
 
 .nav-links a {
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #4b5563;
-    transition: background 0.15s, color 0.15s;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #6b7280;
+    transition: color 0.2s;
 }
 
 .nav-links a:hover {
-    background: #f3f4f6;
-    color: #111827;
+    color: #1e293b;
 }
 
 .nav-links a.active {
-    background: #eff6ff;
-    color: #2563eb;
+    color: #ffffff;
+}
+
+.nav-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(0);
+    animation: navRipple 0.6s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes navRipple {
+    to {
+        transform: scale(1);
+        opacity: 0;
+    }
 }
 
 /* ===== Main Layout ===== */
@@ -99,8 +143,15 @@ main {
     background: #ecfdf5;
     border: 1px solid #a7f3d0;
     color: #065f46;
-    padding: 12px 16px;
-    border-radius: 8px;
+    padding: 12px 18px;
+    border-radius: 12px;
     margin-bottom: 20px;
     font-size: 14px;
+    font-weight: 500;
+    animation: fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
 }
