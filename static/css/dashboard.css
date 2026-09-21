@@ -1,21 +1,32 @@
-/* ===== Dashboard Page ===== */
+/* ===== Dashboard Header ===== */
 
 .dashboard-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.5s ease;
 }
 
 .dashboard-header h1 {
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 26px;
+    font-weight: 800;
     margin: 0 0 4px 0;
+    background: linear-gradient(135deg, #1d4ed8, #4338ca);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .dashboard-header p {
     color: #6b7280;
     margin: 0;
+    font-size: 14px;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== Stat Cards ===== */
@@ -24,33 +35,55 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .stat-card {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid #eef2ff;
+    border-radius: 18px;
     padding: 20px;
     display: flex;
     align-items: center;
     gap: 16px;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    animation: fadeUp 0.5s ease backwards;
+}
+
+.stats .stat-card:nth-child(1) { animation-delay: 0.05s; }
+.stats .stat-card:nth-child(2) { animation-delay: 0.1s; }
+.stats .stat-card:nth-child(3) { animation-delay: 0.15s; }
+.stats .stat-card:nth-child(4) { animation-delay: 0.2s; }
+.stats .stat-card:nth-child(5) { animation-delay: 0.25s; }
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 32px rgba(37, 99, 235, 0.14);
 }
 
 .stat-icon {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
-    border-radius: 10px;
-    background: #eff6ff;
+    font-size: 24px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
     flex-shrink: 0;
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.28);
+    transition: transform 0.25s ease;
+}
+
+.stat-card:hover .stat-icon {
+    transform: scale(1.08) rotate(-4deg);
 }
 
 .stat-icon.danger {
-    background: #fef2f2;
+    background: linear-gradient(135deg, #f43f5e, #ef4444);
+    box-shadow: 0 8px 18px rgba(239, 68, 68, 0.28);
 }
 
 .stat-content {
@@ -60,48 +93,66 @@
 }
 
 .stat-content span {
-    font-size: 13px;
+    font-size: 12.5px;
     color: #6b7280;
+    font-weight: 500;
 }
 
 .stat-content strong {
-    font-size: 22px;
-    font-weight: 700;
+    font-size: 23px;
+    font-weight: 800;
     color: #111827;
 }
 
 .stat-content small {
-    font-size: 12px;
+    font-size: 11.5px;
     color: #9ca3af;
 }
 
-/* ===== Dashboard Card (container umum) ===== */
+/* ===== Dashboard Card ===== */
 
 .dashboard-card {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 24px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid #eef2ff;
+    border-radius: 18px;
+    padding: 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.05);
+    transition: box-shadow 0.25s ease;
+}
+
+.dashboard-card:hover {
+    box-shadow: 0 10px 26px rgba(37, 99, 235, 0.1);
 }
 
 .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     flex-wrap: wrap;
     gap: 8px;
 }
 
 .card-header h2 {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 17px;
+    font-weight: 700;
     margin: 0;
+    color: #1e293b;
+}
+
+.card-header > span {
+    font-size: 12px;
+    font-weight: 600;
+    color: #4f46e5;
+    background: #eef2ff;
+    padding: 4px 12px;
+    border-radius: 999px;
 }
 
 .card-description {
-    font-size: 13px;
+    font-size: 12.5px;
     color: #6b7280;
     margin: 2px 0 0 0;
 }
@@ -109,19 +160,24 @@
 .card-link {
     font-size: 13px;
     color: #2563eb;
+    font-weight: 600;
     text-decoration: none;
-    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #eff6ff;
+    transition: background 0.15s, transform 0.15s;
 }
 
 .card-link:hover {
-    text-decoration: underline;
+    background: #dbeafe;
+    transform: translateX(2px);
 }
 
 .empty {
     color: #9ca3af;
     font-size: 14px;
     text-align: center;
-    padding: 24px 0;
+    padding: 28px 0;
     margin: 0;
 }
 
@@ -130,7 +186,7 @@
 .low-stock-list {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
 }
 
 .stock-item {
@@ -138,6 +194,13 @@
     justify-content: space-between;
     align-items: center;
     gap: 16px;
+    padding: 8px;
+    border-radius: 12px;
+    transition: background 0.15s;
+}
+
+.stock-item:hover {
+    background: #f8fafc;
 }
 
 .stock-info {
@@ -147,7 +210,11 @@
 .stock-name {
     display: flex;
     flex-direction: column;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+}
+
+.stock-name strong {
+    color: #1e293b;
 }
 
 .stock-name small {
@@ -157,33 +224,34 @@
 
 .stock-bar {
     width: 100%;
-    height: 6px;
-    background: #f3f4f6;
+    height: 7px;
+    background: #f1f5f9;
     border-radius: 999px;
     overflow: hidden;
 }
 
 .stock-progress {
     height: 100%;
-    background: #f59e0b;
+    background: linear-gradient(90deg, #fbbf24, #f97316);
     border-radius: 999px;
+    transition: width 0.6s ease;
 }
 
 .stock-status {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    min-width: 60px;
+    min-width: 64px;
 }
 
 .stock-warning {
-    font-weight: 700;
+    font-weight: 800;
     color: #ef4444;
-    font-size: 16px;
+    font-size: 17px;
 }
 
 .stock-status small {
-    font-size: 12px;
+    font-size: 11.5px;
     color: #9ca3af;
 }
 
@@ -192,20 +260,21 @@
 .recent-sales-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 6px;
 }
 
 .sale-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #f3f4f6;
+    padding: 12px 8px;
+    border-radius: 12px;
+    transition: background 0.15s, transform 0.15s;
 }
 
-.sale-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+.sale-item:hover {
+    background: #f8fafc;
+    transform: translateX(4px);
 }
 
 .sale-info {
@@ -215,20 +284,21 @@
 }
 
 .sale-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: #f3f4f6;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #e0e7ff, #eef2ff);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
-    color: #6b7280;
+    font-weight: 800;
+    color: #4f46e5;
 }
 
 .sale-info strong {
     display: block;
     font-size: 14px;
+    color: #1e293b;
 }
 
 .sale-info small {
@@ -237,49 +307,62 @@
 }
 
 .sale-total {
-    font-size: 14px;
+    font-size: 14.5px;
     color: #16a34a;
+    font-weight: 700;
 }
 
-/*Produk Terlaris*/
+/* ===== Produk Terlaris ===== */
 
 .best-selling-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 6px;
 }
 
 .best-selling-item {
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 10px 0;
-    border-bottom: 1px solid #f3f4f6;
+    padding: 12px 8px;
+    border-radius: 12px;
+    transition: background 0.15s, transform 0.15s;
 }
 
-.best-selling-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+.best-selling-item:hover {
+    background: #f8fafc;
+    transform: translateX(4px);
 }
 
 .best-selling-rank {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    background: #eff6ff;
-    color: #2563eb;
-    font-weight: 700;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    color: #ffffff;
+    font-weight: 800;
     font-size: 13px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+.best-selling-item:nth-child(1) .best-selling-rank {
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.35);
 }
 
 .best-selling-info {
     flex: 1;
     display: flex;
     flex-direction: column;
+}
+
+.best-selling-info strong {
+    color: #1e293b;
+    font-size: 14px;
 }
 
 .best-selling-info small {
@@ -294,21 +377,34 @@
     align-items: flex-end;
 }
 
-.best-selling-total small {
-    color: #9ca3af;
-    font-size: 12px;
+.best-selling-total strong {
+    color: #4f46e5;
+    font-size: 15px;
 }
 
-/*Grafik Penjualan*/
+.best-selling-total small {
+    color: #9ca3af;
+    font-size: 11.5px;
+}
+
+/* ===== Grafik Penjualan ===== */
 
 .chart-filter select {
-    padding: 6px 10px;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
+    padding: 8px 14px;
+    border: 1.5px solid #dbeafe;
+    border-radius: 999px;
     font-size: 13px;
+    font-weight: 500;
     color: #374151;
     background: #ffffff;
     cursor: pointer;
+    transition: border-color 0.15s;
+}
+
+.chart-filter select:hover,
+.chart-filter select:focus {
+    outline: none;
+    border-color: #2563eb;
 }
 
 .chart-container {

@@ -6,7 +6,7 @@ Dashboard
 
 {% block extra_css %}
 <link rel="stylesheet" 
-    href="{{url_for('static', filename='css/dashboard.css')}}">
+    href="{{ url_for('static', filename='css/dashboard.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -377,11 +377,12 @@ Dashboard
 </div>
 
 <script>
-    window.salesChartData = {{sales_chart|tojson}};
+    window.salesChartData = {{ sales_chart|tojson }};
 </script>
 
-{%block scripts%}
-<script src="{{url_for('static', filename='js/script.js')}}"></script>
-{%endblock%}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}
 
 {% endblock %}
